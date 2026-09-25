@@ -1,0 +1,71 @@
+import { Image } from 'expo-image'
+import { StyleSheet, View } from 'react-native'
+import Animated, {
+  Extrapolation,
+  type SharedValue,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated'
+
+import { colors } from '@app/tokens'
+
+import type { TitleListItemResponse } from '@app/api'
+
+interface Props {
+  item: TitleListItemResponse
+  index: number
+  width: number
+  height: number
+  scrollX: SharedValue<number>
+}
+
+export function HomeHeroSlide({ item, index, width, height, scrollX }: Props) {
+  const imageStyle = useAnimatedStyle(() => {
+    const inputRange = [(index - 1) * width, index * width, (index + 1) * width]
+
+    return {
+      transform: [
+        {
+          translateX: interpolate(
+            scrollX.get(),
+            inputRange,
+            [-width * 0.2, 0, width * 0.2],
+            Extrapolation.CLAMP
+          )
+        }
+      ]
+    }
+  })
+
+  return (
+    <View style={[styles.root, { width, height }]}>
+      <Animated.View style={[styles.imageContainer, imageStyle]}>
+        <Image
+          source={item.coverUrl}
+          contentPosition={{ top: '20%' }}
+          style={styles.image}
+          contentFit='cover'
+          transition={300}
+        />
+      </Animated.View>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  root: {
+    overflow: 'hidden',
+    backgroundColor: colors.bg.card
+  },
+  imageContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: '-20%',
+    right: '-20%'
+  },
+  image: {
+    width: '100%',
+    height: '100%'
+  }
+})

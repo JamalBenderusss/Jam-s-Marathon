@@ -1,0 +1,26 @@
+import {Bell, CreditCard, Heart, Users} from "lucide-react-native";
+import {router} from "expo-router";
+
+export const PROFILE_MENU = [
+  {
+    icon: CreditCard,
+    label: 'Subscription',
+    value: 'Free',
+    onPress: () => router.push('/subscription')
+  },
+  {
+    icon: Heart,
+    label: 'WatchList',
+    onPress: () => router.push('/library')
+  },
+  {
+    icon: Users,
+    label: 'Friends',
+    onPress: () => {}
+  },
+  {
+    icon: Bell,
+    label: 'Notifications',
+    onPress: () => {}
+  },
+]

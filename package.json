@@ -1,0 +1,35 @@
+{
+  "name": "red-marathon-code",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "ts-check": "pnpm -r exec tsc --noEmit",
+    "format": "prettier --write .",
+    "mob": "pnpm --filter mobile",
+    "web": "pnpm --filter web",
+    "ext": "pnpm --filter ext",
+    "dev": "pnpm -r --parallel dev",
+    "back:dev": "pnpm --dir ../red-marathon-back-end-version_1 start:dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@11.25.0",
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "^57.0.2",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "prettier": "^3.9.6",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.69.0"
+  },
+  "dependencies": {
+    "expo-router": "^57.0.19"
+  }
+}
