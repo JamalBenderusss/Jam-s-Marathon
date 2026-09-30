@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ExternalTitleResponseType =
-  (typeof ExternalTitleResponseType)[keyof typeof ExternalTitleResponseType]
+export type ExternalTitleResponseType = typeof ExternalTitleResponseType[keyof typeof ExternalTitleResponseType];
+
 
 export const ExternalTitleResponseType = {
   GAME: 'GAME',
   MOVIE: 'MOVIE',
   TV_SHOW: 'TV_SHOW',
   BOOK: 'BOOK',
-  ANIME: 'ANIME'
-} as const
+  ANIME: 'ANIME',
+} as const;

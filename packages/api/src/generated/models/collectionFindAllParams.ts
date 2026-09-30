@@ -7,14 +7,14 @@
  */
 
 export type CollectionFindAllParams = {
-  /**
-   * @minimum 0
-   */
-  skip?: number
-  /**
-   * @minimum 1
-   * @maximum 100
-   */
-  take?: number
-  searchTerm?: string
-}
+/**
+ * @minimum 0
+ */
+skip?: number;
+/**
+ * @minimum 1
+ * @maximum 100
+ */
+take?: number;
+searchTerm?: string;
+};

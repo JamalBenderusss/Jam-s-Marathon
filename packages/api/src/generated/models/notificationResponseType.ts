@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type NotificationResponseType =
-  (typeof NotificationResponseType)[keyof typeof NotificationResponseType]
+export type NotificationResponseType = typeof NotificationResponseType[keyof typeof NotificationResponseType];
+
 
 export const NotificationResponseType = {
   SYSTEM: 'SYSTEM',
@@ -16,5 +16,5 @@ export const NotificationResponseType = {
   FRIEND_ACCEPTED: 'FRIEND_ACCEPTED',
   REVIEW_REPLY: 'REVIEW_REPLY',
   SUBSCRIPTION: 'SUBSCRIPTION',
-  RECOMMENDATION: 'RECOMMENDATION'
-} as const
+  RECOMMENDATION: 'RECOMMENDATION',
+} as const;

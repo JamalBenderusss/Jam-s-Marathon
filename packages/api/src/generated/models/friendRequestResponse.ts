@@ -5,10 +5,10 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { FriendResponse } from './friendResponse'
+import type { FriendResponse } from './friendResponse';
 
 export interface FriendRequestResponse {
-  id: string
-  createdAt: string
-  user: FriendResponse
+  id: string;
+  createdAt: string;
+  user: FriendResponse;
 }

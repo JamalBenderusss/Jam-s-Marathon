@@ -5,7 +5,10 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import { useMutation, useQuery } from '@tanstack/react-query'
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -19,755 +22,572 @@ import type {
   UseMutationResult,
   UseQueryOptions,
   UseQueryResult
-} from '@tanstack/react-query'
+} from '@tanstack/react-query';
 
-import { http } from '../../http'
 import type {
   NotificationFindAllParams,
   NotificationListResponse,
   NotificationResponse,
   PushTokenDto
-} from '../models'
+} from '../models';
 
-type AwaitedInput<T> = PromiseLike<T> | T
+import { http } from '../../http';
 
-type Awaited<O> = O extends AwaitedInput<infer T> ? T : never
+type AwaitedInput<T> = PromiseLike<T> | T;
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
+      type Awaited<O> = O extends AwaitedInput<infer T> ? T : never;
 
-const withQueryKey = <T extends object, K>(
-  query: T,
-  queryKey: K
-): T & { queryKey: K } => {
-  const result = { queryKey } as T & { queryKey: K }
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
+
+const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K };
   for (const key of Object.keys(query)) {
     // The explicit queryKey always wins, matching the previous
     // `{ ...query, queryKey }` spread where it was set last.
-    if (key === 'queryKey') continue
+    if (key === 'queryKey') continue;
     Object.defineProperty(result, key, {
       enumerable: true,
       configurable: true,
-      get: () => (query as Record<string, unknown>)[key]
-    })
+      get: () => (query as Record<string, unknown>)[key],
+    });
   }
-  return result
-}
+  return result;
+};
 
 export type notificationRegisterPushTokenResponse200 = {
   data: boolean
   status: 200
 }
 
-export type notificationRegisterPushTokenResponseSuccess =
-  notificationRegisterPushTokenResponse200 & {
-    headers: Headers
-  }
-export type notificationRegisterPushTokenResponse =
-  notificationRegisterPushTokenResponseSuccess
+export type notificationRegisterPushTokenResponseSuccess = (notificationRegisterPushTokenResponse200) & {
+  headers: Headers;
+};
+;
+
+export type notificationRegisterPushTokenResponse = (notificationRegisterPushTokenResponseSuccess)
 
 export const getNotificationRegisterPushTokenUrl = () => {
+
+
+
+
   return `/notifications/push-token`
 }
 
 /**
  * @summary Мобильное приложение присылает токен устройства после разрешения
  */
-export const notificationRegisterPushToken = async (
-  pushTokenDto: PushTokenDto,
-  options?: Parameters<typeof http>[1]
-): Promise<notificationRegisterPushTokenResponse> => {
-  const getHeaders = (
-    h?: NonNullable<RequestInit['headers']>
-  ): Record<string, string | readonly string[]> => {
-    if (!h) return {}
-    if (h instanceof Headers) return Object.fromEntries(h.entries())
+export const notificationRegisterPushToken = async (pushTokenDto: PushTokenDto, options?: Parameters<typeof http>[1]): Promise<notificationRegisterPushTokenResponse> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
     if (Symbol.iterator in h) {
       return Object.fromEntries(
-        Array.from(
-          h as Iterable<Iterable<string>>,
-          entry => Array.from(entry) as [string, string]
-        )
-      )
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
     }
-    const headers: Record<string, string | readonly string[]> = {}
-    for (const [name, value] of Object.entries<
-      string | readonly string[] | undefined
-    >(h)) {
-      if (value !== undefined) headers[name] = value
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
     }
-    return headers
+    return headers;
+  };
+return http<notificationRegisterPushTokenResponse>(getNotificationRegisterPushTokenUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(pushTokenDto)
   }
-  return http<notificationRegisterPushTokenResponse>(
-    getNotificationRegisterPushTokenUrl(),
-    {
-      ...options,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...getHeaders(options?.headers)
-      },
-      body: JSON.stringify(pushTokenDto)
-    }
-  )
-}
+);}
 
-export const getNotificationRegisterPushTokenMutationKey = () =>
-  ['notificationRegisterPushToken'] as const
 
-export const getNotificationRegisterPushTokenMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof notificationRegisterPushToken>>,
-    TError,
-    NotificationRegisterPushTokenMutationVariables,
-    TContext
-  >
-  request?: SecondParameter<typeof http>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof notificationRegisterPushToken>>,
-  TError,
-  NotificationRegisterPushTokenMutationVariables,
-  TContext
-> => {
-  const mutationKey = getNotificationRegisterPushTokenMutationKey()
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined }
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof notificationRegisterPushToken>>,
-    NotificationRegisterPushTokenMutationVariables
-  > = props => {
-    const { data } = props ?? {}
 
-    return notificationRegisterPushToken(data, requestOptions)
-  }
 
-  return { mutationFn, ...mutationOptions }
-}
+export const getNotificationRegisterPushTokenMutationKey = () => ['notificationRegisterPushToken'] as const;
 
-export type NotificationRegisterPushTokenMutationResult = NonNullable<
-  Awaited<ReturnType<typeof notificationRegisterPushToken>>
->
-export type NotificationRegisterPushTokenMutationBody = PushTokenDto
-export type NotificationRegisterPushTokenMutationError = unknown
-export type NotificationRegisterPushTokenMutationVariables = {
-  data: PushTokenDto
-}
+export const getNotificationRegisterPushTokenMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationRegisterPushToken>>, TError,NotificationRegisterPushTokenMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof notificationRegisterPushToken>>, TError,NotificationRegisterPushTokenMutationVariables, TContext> => {
 
-/**
+const mutationKey = getNotificationRegisterPushTokenMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof notificationRegisterPushToken>>, NotificationRegisterPushTokenMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  notificationRegisterPushToken(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NotificationRegisterPushTokenMutationResult = NonNullable<Awaited<ReturnType<typeof notificationRegisterPushToken>>>
+    export type NotificationRegisterPushTokenMutationBody = PushTokenDto
+    export type NotificationRegisterPushTokenMutationError = unknown
+    export type NotificationRegisterPushTokenMutationVariables = {data: PushTokenDto}
+
+    /**
  * @summary Мобильное приложение присылает токен устройства после разрешения
  */
-export const useNotificationRegisterPushToken = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof notificationRegisterPushToken>>,
-      TError,
-      NotificationRegisterPushTokenMutationVariables,
-      TContext
-    >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof notificationRegisterPushToken>>,
-  TError,
-  NotificationRegisterPushTokenMutationVariables,
-  TContext
-> => {
-  return useMutation(
-    getNotificationRegisterPushTokenMutationOptions(options),
-    queryClient
-  )
-}
-export type notificationRemovePushTokenResponse200 = {
+export const useNotificationRegisterPushToken = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationRegisterPushToken>>, TError,NotificationRegisterPushTokenMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof notificationRegisterPushToken>>,
+        TError,
+        NotificationRegisterPushTokenMutationVariables,
+        TContext
+      > => {
+      return useMutation(getNotificationRegisterPushTokenMutationOptions(options), queryClient);
+    }
+    export type notificationRemovePushTokenResponse200 = {
   data: boolean
   status: 200
 }
 
-export type notificationRemovePushTokenResponseSuccess =
-  notificationRemovePushTokenResponse200 & {
-    headers: Headers
-  }
-export type notificationRemovePushTokenResponse =
-  notificationRemovePushTokenResponseSuccess
+export type notificationRemovePushTokenResponseSuccess = (notificationRemovePushTokenResponse200) & {
+  headers: Headers;
+};
+;
 
-export const getNotificationRemovePushTokenUrl = (token: string) => {
+export type notificationRemovePushTokenResponse = (notificationRemovePushTokenResponseSuccess)
+
+export const getNotificationRemovePushTokenUrl = (token: string,) => {
+
+
+
+
   return `/notifications/push-token/${token}`
 }
 
 /**
  * @summary Юзер выключил уведомления или вышел из аккаунта
  */
-export const notificationRemovePushToken = async (
-  token: string,
-  options?: Parameters<typeof http>[1]
-): Promise<notificationRemovePushTokenResponse> => {
-  return http<notificationRemovePushTokenResponse>(
-    getNotificationRemovePushTokenUrl(token),
-    {
-      ...options,
-      method: 'DELETE'
-    }
-  )
-}
+export const notificationRemovePushToken = async (token: string, options?: Parameters<typeof http>[1]): Promise<notificationRemovePushTokenResponse> => {
 
-export const getNotificationRemovePushTokenMutationKey = () =>
-  ['notificationRemovePushToken'] as const
+  return http<notificationRemovePushTokenResponse>(getNotificationRemovePushTokenUrl(token),
+  {
+    ...options,
+    method: 'DELETE'
 
-export const getNotificationRemovePushTokenMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof notificationRemovePushToken>>,
-    TError,
-    NotificationRemovePushTokenMutationVariables,
-    TContext
-  >
-  request?: SecondParameter<typeof http>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof notificationRemovePushToken>>,
-  TError,
-  NotificationRemovePushTokenMutationVariables,
-  TContext
-> => {
-  const mutationKey = getNotificationRemovePushTokenMutationKey()
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined }
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof notificationRemovePushToken>>,
-    NotificationRemovePushTokenMutationVariables
-  > = props => {
-    const { token } = props ?? {}
-
-    return notificationRemovePushToken(token, requestOptions)
   }
+);}
 
-  return { mutationFn, ...mutationOptions }
-}
 
-export type NotificationRemovePushTokenMutationResult = NonNullable<
-  Awaited<ReturnType<typeof notificationRemovePushToken>>
->
 
-export type NotificationRemovePushTokenMutationError = unknown
-export type NotificationRemovePushTokenMutationVariables = { token: string }
 
-/**
+
+export const getNotificationRemovePushTokenMutationKey = () => ['notificationRemovePushToken'] as const;
+
+export const getNotificationRemovePushTokenMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationRemovePushToken>>, TError,NotificationRemovePushTokenMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof notificationRemovePushToken>>, TError,NotificationRemovePushTokenMutationVariables, TContext> => {
+
+const mutationKey = getNotificationRemovePushTokenMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof notificationRemovePushToken>>, NotificationRemovePushTokenMutationVariables> = (props) => {
+          const {token} = props ?? {};
+
+          return  notificationRemovePushToken(token,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NotificationRemovePushTokenMutationResult = NonNullable<Awaited<ReturnType<typeof notificationRemovePushToken>>>
+
+    export type NotificationRemovePushTokenMutationError = unknown
+    export type NotificationRemovePushTokenMutationVariables = {token: string}
+
+    /**
  * @summary Юзер выключил уведомления или вышел из аккаунта
  */
-export const useNotificationRemovePushToken = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof notificationRemovePushToken>>,
-      TError,
-      NotificationRemovePushTokenMutationVariables,
-      TContext
-    >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof notificationRemovePushToken>>,
-  TError,
-  NotificationRemovePushTokenMutationVariables,
-  TContext
-> => {
-  return useMutation(
-    getNotificationRemovePushTokenMutationOptions(options),
-    queryClient
-  )
-}
-export type notificationFindAllResponse200 = {
+export const useNotificationRemovePushToken = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationRemovePushToken>>, TError,NotificationRemovePushTokenMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof notificationRemovePushToken>>,
+        TError,
+        NotificationRemovePushTokenMutationVariables,
+        TContext
+      > => {
+      return useMutation(getNotificationRemovePushTokenMutationOptions(options), queryClient);
+    }
+    export type notificationFindAllResponse200 = {
   data: NotificationListResponse
   status: 200
 }
 
-export type notificationFindAllResponseSuccess =
-  notificationFindAllResponse200 & {
-    headers: Headers
-  }
-export type notificationFindAllResponse = notificationFindAllResponseSuccess
+export type notificationFindAllResponseSuccess = (notificationFindAllResponse200) & {
+  headers: Headers;
+};
+;
 
-export const getNotificationFindAllUrl = (
-  params?: NotificationFindAllParams
-) => {
-  const normalizedParams = new URLSearchParams()
+export type notificationFindAllResponse = (notificationFindAllResponseSuccess)
+
+export const getNotificationFindAllUrl = (params?: NotificationFindAllParams,) => {
+  const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
+
     if (value !== undefined) {
       normalizedParams.append(key, value === null ? 'null' : String(value))
     }
-  })
+  });
 
-  const stringifiedParams = normalizedParams.toString()
+  const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0
-    ? `/notifications?${stringifiedParams}`
-    : `/notifications`
+  return stringifiedParams.length > 0 ? `/notifications?${stringifiedParams}` : `/notifications`
 }
 
-export const notificationFindAll = async (
-  params?: NotificationFindAllParams,
-  options?: Parameters<typeof http>[1]
-): Promise<notificationFindAllResponse> => {
-  return http<notificationFindAllResponse>(getNotificationFindAllUrl(params), {
+export const notificationFindAll = async (params?: NotificationFindAllParams, options?: Parameters<typeof http>[1]): Promise<notificationFindAllResponse> => {
+
+  return http<notificationFindAllResponse>(getNotificationFindAllUrl(params),
+  {
     ...options,
     method: 'GET'
-  })
-}
 
-export const getNotificationFindAllQueryKey = (
-  params?: NotificationFindAllParams
-) => {
-  return [`/notifications`, ...(params ? [params] : [])] as const
-}
 
-export const getNotificationFindAllQueryOptions = <
-  TData = Awaited<ReturnType<typeof notificationFindAll>>,
-  TError = unknown
->(
-  params?: NotificationFindAllParams,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof notificationFindAll>>,
-        TError,
-        TData
-      >
-    >
-    request?: SecondParameter<typeof http>
   }
+);}
+
+
+
+
+
+export const getNotificationFindAllQueryKey = (params?: NotificationFindAllParams,) => {
+    return [
+    `/notifications`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getNotificationFindAllQueryOptions = <TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(params?: NotificationFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
 
-  const queryKey =
-    queryOptions?.queryKey ?? getNotificationFindAllQueryKey(params)
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof notificationFindAll>>
-  > = ({ signal }) => notificationFindAll(params, { signal, ...requestOptions })
+  const queryKey =  queryOptions?.queryKey ?? getNotificationFindAllQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof notificationFindAll>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof notificationFindAll>>> = ({ signal }) => notificationFindAll(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type NotificationFindAllQueryResult = NonNullable<
-  Awaited<ReturnType<typeof notificationFindAll>>
->
+export type NotificationFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof notificationFindAll>>>
 export type NotificationFindAllQueryError = unknown
 
-export function useNotificationFindAll<
-  TData = Awaited<ReturnType<typeof notificationFindAll>>,
-  TError = unknown
->(
-  params: undefined | NotificationFindAllParams,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof notificationFindAll>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+
+export function useNotificationFindAll<TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(
+ params: undefined |  NotificationFindAllParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof notificationFindAll>>,
           TError,
           Awaited<ReturnType<typeof notificationFindAll>>
-        >,
-        'initialData'
-      >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>
-}
-export function useNotificationFindAll<
-  TData = Awaited<ReturnType<typeof notificationFindAll>>,
-  TError = unknown
->(
-  params?: NotificationFindAllParams,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof notificationFindAll>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useNotificationFindAll<TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(
+ params?: NotificationFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof notificationFindAll>>,
           TError,
           Awaited<ReturnType<typeof notificationFindAll>>
-        >,
-        'initialData'
-      >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>
-}
-export function useNotificationFindAll<
-  TData = Awaited<ReturnType<typeof notificationFindAll>>,
-  TError = unknown
->(
-  params?: NotificationFindAllParams,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof notificationFindAll>>,
-        TError,
-        TData
-      >
-    >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useNotificationFindAll<TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(
+ params?: NotificationFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useNotificationFindAll<TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(
+ params?: NotificationFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getNotificationFindAllQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
 }
 
-export function useNotificationFindAll<
-  TData = Awaited<ReturnType<typeof notificationFindAll>>,
-  TError = unknown
->(
-  params?: NotificationFindAllParams,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof notificationFindAll>>,
-        TError,
-        TData
-      >
-    >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>
-} {
-  const queryOptions = getNotificationFindAllQueryOptions(params, options)
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> }
 
-  return withQueryKey(query, queryOptions.queryKey)
-}
+
+
 
 export type notificationMarkAsReadResponse200 = {
   data: NotificationResponse
   status: 200
 }
 
-export type notificationMarkAsReadResponseSuccess =
-  notificationMarkAsReadResponse200 & {
-    headers: Headers
-  }
-export type notificationMarkAsReadResponse =
-  notificationMarkAsReadResponseSuccess
+export type notificationMarkAsReadResponseSuccess = (notificationMarkAsReadResponse200) & {
+  headers: Headers;
+};
+;
 
-export const getNotificationMarkAsReadUrl = (id: string) => {
+export type notificationMarkAsReadResponse = (notificationMarkAsReadResponseSuccess)
+
+export const getNotificationMarkAsReadUrl = (id: string,) => {
+
+
+
+
   return `/notifications/${id}/read`
 }
 
-export const notificationMarkAsRead = async (
-  id: string,
-  options?: Parameters<typeof http>[1]
-): Promise<notificationMarkAsReadResponse> => {
-  return http<notificationMarkAsReadResponse>(
-    getNotificationMarkAsReadUrl(id),
-    {
-      ...options,
-      method: 'PATCH'
-    }
-  )
-}
+export const notificationMarkAsRead = async (id: string, options?: Parameters<typeof http>[1]): Promise<notificationMarkAsReadResponse> => {
 
-export const getNotificationMarkAsReadMutationKey = () =>
-  ['notificationMarkAsRead'] as const
+  return http<notificationMarkAsReadResponse>(getNotificationMarkAsReadUrl(id),
+  {
+    ...options,
+    method: 'PATCH'
 
-export const getNotificationMarkAsReadMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof notificationMarkAsRead>>,
-    TError,
-    NotificationMarkAsReadMutationVariables,
-    TContext
-  >
-  request?: SecondParameter<typeof http>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof notificationMarkAsRead>>,
-  TError,
-  NotificationMarkAsReadMutationVariables,
-  TContext
-> => {
-  const mutationKey = getNotificationMarkAsReadMutationKey()
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined }
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof notificationMarkAsRead>>,
-    NotificationMarkAsReadMutationVariables
-  > = props => {
-    const { id } = props ?? {}
-
-    return notificationMarkAsRead(id, requestOptions)
   }
+);}
 
-  return { mutationFn, ...mutationOptions }
-}
 
-export type NotificationMarkAsReadMutationResult = NonNullable<
-  Awaited<ReturnType<typeof notificationMarkAsRead>>
->
 
-export type NotificationMarkAsReadMutationError = unknown
-export type NotificationMarkAsReadMutationVariables = { id: string }
 
-export const useNotificationMarkAsRead = <TError = unknown, TContext = unknown>(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof notificationMarkAsRead>>,
-      TError,
-      NotificationMarkAsReadMutationVariables,
-      TContext
-    >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof notificationMarkAsRead>>,
-  TError,
-  NotificationMarkAsReadMutationVariables,
-  TContext
-> => {
-  return useMutation(
-    getNotificationMarkAsReadMutationOptions(options),
-    queryClient
-  )
-}
-export type notificationMarkAllAsReadResponse200 = {
+
+export const getNotificationMarkAsReadMutationKey = () => ['notificationMarkAsRead'] as const;
+
+export const getNotificationMarkAsReadMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationMarkAsRead>>, TError,NotificationMarkAsReadMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof notificationMarkAsRead>>, TError,NotificationMarkAsReadMutationVariables, TContext> => {
+
+const mutationKey = getNotificationMarkAsReadMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof notificationMarkAsRead>>, NotificationMarkAsReadMutationVariables> = (props) => {
+          const {id} = props ?? {};
+
+          return  notificationMarkAsRead(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NotificationMarkAsReadMutationResult = NonNullable<Awaited<ReturnType<typeof notificationMarkAsRead>>>
+
+    export type NotificationMarkAsReadMutationError = unknown
+    export type NotificationMarkAsReadMutationVariables = {id: string}
+
+    export const useNotificationMarkAsRead = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationMarkAsRead>>, TError,NotificationMarkAsReadMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof notificationMarkAsRead>>,
+        TError,
+        NotificationMarkAsReadMutationVariables,
+        TContext
+      > => {
+      return useMutation(getNotificationMarkAsReadMutationOptions(options), queryClient);
+    }
+    export type notificationMarkAllAsReadResponse200 = {
   data: boolean
   status: 200
 }
 
-export type notificationMarkAllAsReadResponseSuccess =
-  notificationMarkAllAsReadResponse200 & {
-    headers: Headers
-  }
-export type notificationMarkAllAsReadResponse =
-  notificationMarkAllAsReadResponseSuccess
+export type notificationMarkAllAsReadResponseSuccess = (notificationMarkAllAsReadResponse200) & {
+  headers: Headers;
+};
+;
+
+export type notificationMarkAllAsReadResponse = (notificationMarkAllAsReadResponseSuccess)
 
 export const getNotificationMarkAllAsReadUrl = () => {
+
+
+
+
   return `/notifications/read-all`
 }
 
-export const notificationMarkAllAsRead = async (
-  options?: Parameters<typeof http>[1]
-): Promise<notificationMarkAllAsReadResponse> => {
-  return http<notificationMarkAllAsReadResponse>(
-    getNotificationMarkAllAsReadUrl(),
-    {
-      ...options,
-      method: 'PATCH'
-    }
-  )
-}
+export const notificationMarkAllAsRead = async ( options?: Parameters<typeof http>[1]): Promise<notificationMarkAllAsReadResponse> => {
 
-export const getNotificationMarkAllAsReadMutationKey = () =>
-  ['notificationMarkAllAsRead'] as const
+  return http<notificationMarkAllAsReadResponse>(getNotificationMarkAllAsReadUrl(),
+  {
+    ...options,
+    method: 'PATCH'
 
-export const getNotificationMarkAllAsReadMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof notificationMarkAllAsRead>>,
-    TError,
-    void,
-    TContext
-  >
-  request?: SecondParameter<typeof http>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof notificationMarkAllAsRead>>,
-  TError,
-  void,
-  TContext
-> => {
-  const mutationKey = getNotificationMarkAllAsReadMutationKey()
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined }
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof notificationMarkAllAsRead>>,
-    void
-  > = () => {
-    return notificationMarkAllAsRead(requestOptions)
   }
+);}
 
-  return { mutationFn, ...mutationOptions }
-}
 
-export type NotificationMarkAllAsReadMutationResult = NonNullable<
-  Awaited<ReturnType<typeof notificationMarkAllAsRead>>
->
 
-export type NotificationMarkAllAsReadMutationError = unknown
 
-export const useNotificationMarkAllAsRead = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof notificationMarkAllAsRead>>,
-      TError,
-      void,
-      TContext
-    >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof notificationMarkAllAsRead>>,
-  TError,
-  void,
-  TContext
-> => {
-  return useMutation(
-    getNotificationMarkAllAsReadMutationOptions(options),
-    queryClient
-  )
-}
-export type notificationDeleteResponse204 = {
+
+export const getNotificationMarkAllAsReadMutationKey = () => ['notificationMarkAllAsRead'] as const;
+
+export const getNotificationMarkAllAsReadMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationMarkAllAsRead>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof notificationMarkAllAsRead>>, TError,void, TContext> => {
+
+const mutationKey = getNotificationMarkAllAsReadMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof notificationMarkAllAsRead>>, void> = () => {
+
+
+          return  notificationMarkAllAsRead(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NotificationMarkAllAsReadMutationResult = NonNullable<Awaited<ReturnType<typeof notificationMarkAllAsRead>>>
+
+    export type NotificationMarkAllAsReadMutationError = unknown
+
+
+    export const useNotificationMarkAllAsRead = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationMarkAllAsRead>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof notificationMarkAllAsRead>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getNotificationMarkAllAsReadMutationOptions(options), queryClient);
+    }
+    export type notificationDeleteResponse204 = {
   data: boolean
   status: 204
 }
 
-export type notificationDeleteResponseSuccess =
-  notificationDeleteResponse204 & {
-    headers: Headers
-  }
-export type notificationDeleteResponse = notificationDeleteResponseSuccess
+export type notificationDeleteResponseSuccess = (notificationDeleteResponse204) & {
+  headers: Headers;
+};
+;
 
-export const getNotificationDeleteUrl = (id: string) => {
+export type notificationDeleteResponse = (notificationDeleteResponseSuccess)
+
+export const getNotificationDeleteUrl = (id: string,) => {
+
+
+
+
   return `/notifications/${id}`
 }
 
-export const notificationDelete = async (
-  id: string,
-  options?: Parameters<typeof http>[1]
-): Promise<notificationDeleteResponse> => {
-  return http<notificationDeleteResponse>(getNotificationDeleteUrl(id), {
+export const notificationDelete = async (id: string, options?: Parameters<typeof http>[1]): Promise<notificationDeleteResponse> => {
+
+  return http<notificationDeleteResponse>(getNotificationDeleteUrl(id),
+  {
     ...options,
     method: 'DELETE'
-  })
-}
 
-export const getNotificationDeleteMutationKey = () =>
-  ['notificationDelete'] as const
 
-export const getNotificationDeleteMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof notificationDelete>>,
-    TError,
-    NotificationDeleteMutationVariables,
-    TContext
-  >
-  request?: SecondParameter<typeof http>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof notificationDelete>>,
-  TError,
-  NotificationDeleteMutationVariables,
-  TContext
-> => {
-  const mutationKey = getNotificationDeleteMutationKey()
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined }
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof notificationDelete>>,
-    NotificationDeleteMutationVariables
-  > = props => {
-    const { id } = props ?? {}
-
-    return notificationDelete(id, requestOptions)
   }
+);}
 
-  return { mutationFn, ...mutationOptions }
-}
 
-export type NotificationDeleteMutationResult = NonNullable<
-  Awaited<ReturnType<typeof notificationDelete>>
->
 
-export type NotificationDeleteMutationError = unknown
-export type NotificationDeleteMutationVariables = { id: string }
 
-export const useNotificationDelete = <TError = unknown, TContext = unknown>(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof notificationDelete>>,
-      TError,
-      NotificationDeleteMutationVariables,
-      TContext
-    >
-    request?: SecondParameter<typeof http>
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof notificationDelete>>,
-  TError,
-  NotificationDeleteMutationVariables,
-  TContext
-> => {
-  return useMutation(getNotificationDeleteMutationOptions(options), queryClient)
-}
+
+export const getNotificationDeleteMutationKey = () => ['notificationDelete'] as const;
+
+export const getNotificationDeleteMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationDelete>>, TError,NotificationDeleteMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof notificationDelete>>, TError,NotificationDeleteMutationVariables, TContext> => {
+
+const mutationKey = getNotificationDeleteMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof notificationDelete>>, NotificationDeleteMutationVariables> = (props) => {
+          const {id} = props ?? {};
+
+          return  notificationDelete(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NotificationDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof notificationDelete>>>
+
+    export type NotificationDeleteMutationError = unknown
+    export type NotificationDeleteMutationVariables = {id: string}
+
+    export const useNotificationDelete = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationDelete>>, TError,NotificationDeleteMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof notificationDelete>>,
+        TError,
+        NotificationDeleteMutationVariables,
+        TContext
+      > => {
+      return useMutation(getNotificationDeleteMutationOptions(options), queryClient);
+    }

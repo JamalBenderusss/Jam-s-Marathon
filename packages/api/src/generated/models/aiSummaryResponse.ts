@@ -7,5 +7,5 @@
  */
 
 export interface AiSummaryResponse {
-  summary: string
+  summary: string;
 }

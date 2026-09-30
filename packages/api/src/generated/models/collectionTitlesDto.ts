@@ -8,8 +8,8 @@
 
 export interface CollectionTitlesDto {
   /**
-   * @minItems 1
-   * @maxItems 50
-   */
-  titleIds: string[]
+     * @minItems 1
+     * @maxItems 50
+     */
+  titleIds: string[];
 }

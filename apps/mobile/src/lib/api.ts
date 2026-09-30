@@ -5,6 +5,8 @@ import {clearTokens, getRefreshToken, saveTokens} from "@/lib/token";
 import {router} from "expo-router";
 import {authTokenSchema} from "@app/schemas";
 
+console.log('API URL:', process.env.EXPO_PUBLIC_API_URL)
+
 configureApi({
   //функция из api/http.ts , для orval, в orval.config писали мутацию, чтоб использовать свой http.ts
   baseUrl: process.env.EXPO_PUBLIC_API_URL!,
@@ -38,6 +40,6 @@ configureApi({
   },
   onUnauthorized: async () => {
     await clearTokens()
-    router.replace('/login')
+    // router.replace('/login')
   }
 })

@@ -7,18 +7,18 @@
  */
 
 export type NotificationFindAllParams = {
-  /**
-   * @minimum 0
-   */
-  skip?: number
-  /**
-   * @minimum 1
-   * @maximum 100
-   */
-  take?: number
-  searchTerm?: string
-  /**
-   * Только непрочитанные — для колокольчика
-   */
-  isUnread?: string
-}
+/**
+ * @minimum 0
+ */
+skip?: number;
+/**
+ * @minimum 1
+ * @maximum 100
+ */
+take?: number;
+searchTerm?: string;
+/**
+ * Только непрочитанные — для колокольчика
+ */
+isUnread?: string;
+};

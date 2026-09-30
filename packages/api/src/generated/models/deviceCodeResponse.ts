@@ -8,8 +8,8 @@
 
 export interface DeviceCodeResponse {
   /** Шесть цифр в формате 123-456 */
-  code: string
-  expiresAt: string
+  code: string;
+  expiresAt: string;
   /** Через сколько секунд опрашивать /auth/device/poll */
-  intervalSec: number
+  intervalSec: number;
 }

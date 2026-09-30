@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type QuickAddDtoStatus =
-  (typeof QuickAddDtoStatus)[keyof typeof QuickAddDtoStatus]
+export type QuickAddDtoStatus = typeof QuickAddDtoStatus[keyof typeof QuickAddDtoStatus];
+
 
 export const QuickAddDtoStatus = {
   PLANNED: 'PLANNED',
   IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED',
   ON_HOLD: 'ON_HOLD',
-  DROPPED: 'DROPPED'
-} as const
+  DROPPED: 'DROPPED',
+} as const;

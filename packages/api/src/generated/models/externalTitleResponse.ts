@@ -5,19 +5,19 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ExternalTitleResponseExternalSource } from './externalTitleResponseExternalSource'
-import type { ExternalTitleResponseType } from './externalTitleResponseType'
+import type { ExternalTitleResponseExternalSource } from './externalTitleResponseExternalSource';
+import type { ExternalTitleResponseType } from './externalTitleResponseType';
 
 export interface ExternalTitleResponse {
-  externalId: string
-  externalSource: ExternalTitleResponseExternalSource
-  type: ExternalTitleResponseType
-  name: string
-  originalName?: string
-  description?: string
-  coverUrl?: string
-  releaseDate?: string
-  rating?: number
-  ratingCount?: number
-  genres: string[]
+  externalId: string;
+  externalSource: ExternalTitleResponseExternalSource;
+  type: ExternalTitleResponseType;
+  name: string;
+  originalName?: string;
+  description?: string;
+  coverUrl?: string;
+  releaseDate?: string;
+  rating?: number;
+  ratingCount?: number;
+  genres: string[];
 }

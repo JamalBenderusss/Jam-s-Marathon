@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type DevicePollResponseStatus =
-  (typeof DevicePollResponseStatus)[keyof typeof DevicePollResponseStatus]
+export type DevicePollResponseStatus = typeof DevicePollResponseStatus[keyof typeof DevicePollResponseStatus];
+
 
 export const DevicePollResponseStatus = {
   pending: 'pending',
-  approved: 'approved'
-} as const
+  approved: 'approved',
+} as const;

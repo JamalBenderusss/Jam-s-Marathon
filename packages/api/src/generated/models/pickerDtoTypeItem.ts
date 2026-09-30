@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type PickerDtoTypeItem =
-  (typeof PickerDtoTypeItem)[keyof typeof PickerDtoTypeItem]
+export type PickerDtoTypeItem = typeof PickerDtoTypeItem[keyof typeof PickerDtoTypeItem];
+
 
 export const PickerDtoTypeItem = {
   GAME: 'GAME',
   MOVIE: 'MOVIE',
   TV_SHOW: 'TV_SHOW',
   BOOK: 'BOOK',
-  ANIME: 'ANIME'
-} as const
+  ANIME: 'ANIME',
+} as const;

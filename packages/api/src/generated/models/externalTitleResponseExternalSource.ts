@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ExternalTitleResponseExternalSource =
-  (typeof ExternalTitleResponseExternalSource)[keyof typeof ExternalTitleResponseExternalSource]
+export type ExternalTitleResponseExternalSource = typeof ExternalTitleResponseExternalSource[keyof typeof ExternalTitleResponseExternalSource];
+
 
 export const ExternalTitleResponseExternalSource = {
   TMDB: 'TMDB',
   RAWG: 'RAWG',
   GOOGLE_BOOKS: 'GOOGLE_BOOKS',
-  SHIKIMORI: 'SHIKIMORI'
-} as const
+  SHIKIMORI: 'SHIKIMORI',
+} as const;

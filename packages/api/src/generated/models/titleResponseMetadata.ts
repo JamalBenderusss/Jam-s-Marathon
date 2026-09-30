@@ -9,4 +9,4 @@
 /**
  * Страницы книги, платформы игры, число серий
  */
-export type TitleResponseMetadata = { [key: string]: unknown }
+export type TitleResponseMetadata = { [key: string]: unknown };

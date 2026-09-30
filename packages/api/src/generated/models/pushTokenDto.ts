@@ -5,13 +5,13 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { PushTokenDtoPlatform } from './pushTokenDtoPlatform'
+import type { PushTokenDtoPlatform } from './pushTokenDtoPlatform';
 
 export interface PushTokenDto {
   /**
-   * Токен из expo-notifications: ExponentPushToken[xxxxxxxx]
-   * @pattern ^ExponentPushToken\[.+\]$
-   */
-  token: string
-  platform: PushTokenDtoPlatform
+     * Токен из expo-notifications: ExponentPushToken[xxxxxxxx]
+     * @pattern ^ExponentPushToken\[.+\]$
+     */
+  token: string;
+  platform: PushTokenDtoPlatform;
 }

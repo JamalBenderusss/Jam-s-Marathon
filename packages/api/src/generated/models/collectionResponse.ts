@@ -5,19 +5,19 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { TitleListItemResponse } from './titleListItemResponse'
+import type { TitleListItemResponse } from './titleListItemResponse';
 
 export interface CollectionResponse {
-  id: string
-  name: string
-  slug: string
+  id: string;
+  name: string;
+  slug: string;
   /** @nullable */
-  description: string | null
+  description: string | null;
   /** @nullable */
-  coverUrl: string | null
-  isPublic: boolean
-  titlesCount: number
-  createdAt: string
-  updatedAt: string
-  titles: TitleListItemResponse[]
+  coverUrl: string | null;
+  isPublic: boolean;
+  titlesCount: number;
+  createdAt: string;
+  updatedAt: string;
+  titles: TitleListItemResponse[];
 }

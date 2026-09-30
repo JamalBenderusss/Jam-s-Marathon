@@ -5,9 +5,9 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { FriendRequestResponse } from './friendRequestResponse'
+import type { FriendRequestResponse } from './friendRequestResponse';
 
 export interface FriendRequestListResponse {
-  items: FriendRequestResponse[]
-  totalCount: number
+  items: FriendRequestResponse[];
+  totalCount: number;
 }

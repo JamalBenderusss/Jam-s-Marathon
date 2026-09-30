@@ -5,12 +5,12 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ImportTitleDtoSource } from './importTitleDtoSource'
-import type { ImportTitleDtoType } from './importTitleDtoType'
+import type { ImportTitleDtoSource } from './importTitleDtoSource';
+import type { ImportTitleDtoType } from './importTitleDtoType';
 
 export interface ImportTitleDto {
-  source: ImportTitleDtoSource
-  externalId: string
+  source: ImportTitleDtoSource;
+  externalId: string;
   /** TMDB отдаёт фильмы и сериалы по разным путям — тип нужен ему */
-  type?: ImportTitleDtoType
+  type?: ImportTitleDtoType;
 }

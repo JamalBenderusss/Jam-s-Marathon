@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AiSuggestionResponseType =
-  (typeof AiSuggestionResponseType)[keyof typeof AiSuggestionResponseType]
+export type AiSuggestionResponseType = typeof AiSuggestionResponseType[keyof typeof AiSuggestionResponseType];
+
 
 export const AiSuggestionResponseType = {
   GAME: 'GAME',
   MOVIE: 'MOVIE',
   TV_SHOW: 'TV_SHOW',
   BOOK: 'BOOK',
-  ANIME: 'ANIME'
-} as const
+  ANIME: 'ANIME',
+} as const;

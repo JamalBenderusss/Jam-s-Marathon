@@ -8,13 +8,13 @@
 
 export interface ChangePasswordDto {
   /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  oldPassword: string
+     * @minLength 6
+     * @maxLength 100
+     */
+  oldPassword: string;
   /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  newPassword: string
+     * @minLength 6
+     * @maxLength 100
+     */
+  newPassword: string;
 }

@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type SubscriptionResponseStatus =
-  (typeof SubscriptionResponseStatus)[keyof typeof SubscriptionResponseStatus]
+export type SubscriptionResponseStatus = typeof SubscriptionResponseStatus[keyof typeof SubscriptionResponseStatus];
+
 
 export const SubscriptionResponseStatus = {
   ACTIVE: 'ACTIVE',
   TRIALING: 'TRIALING',
   PAST_DUE: 'PAST_DUE',
   CANCELED: 'CANCELED',
-  EXPIRED: 'EXPIRED'
-} as const
+  EXPIRED: 'EXPIRED',
+} as const;

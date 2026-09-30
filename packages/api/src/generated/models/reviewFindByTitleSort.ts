@@ -6,11 +6,11 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ReviewFindByTitleSort =
-  (typeof ReviewFindByTitleSort)[keyof typeof ReviewFindByTitleSort]
+export type ReviewFindByTitleSort = typeof ReviewFindByTitleSort[keyof typeof ReviewFindByTitleSort];
+
 
 export const ReviewFindByTitleSort = {
   rating: 'rating',
   newest: 'newest',
-  ratingAsc: 'ratingAsc'
-} as const
+  ratingAsc: 'ratingAsc',
+} as const;

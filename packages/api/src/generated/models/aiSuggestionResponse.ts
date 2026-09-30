@@ -5,17 +5,17 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { AiSuggestionResponseType } from './aiSuggestionResponseType'
-import type { TitleListItemResponse } from './titleListItemResponse'
+import type { AiSuggestionResponseType } from './aiSuggestionResponseType';
+import type { TitleListItemResponse } from './titleListItemResponse';
 
 export interface AiSuggestionResponse {
-  name: string
-  type: AiSuggestionResponseType
+  name: string;
+  type: AiSuggestionResponseType;
   /** Почему модель это предложила */
-  reason: string
+  reason: string;
   /**
-   * Заполнен, если тайтл уже есть в нашей базе
-   * @nullable
-   */
-  title: TitleListItemResponse | null
+     * Заполнен, если тайтл уже есть в нашей базе
+     * @nullable
+     */
+  title: TitleListItemResponse | null;
 }

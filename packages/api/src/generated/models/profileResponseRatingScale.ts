@@ -10,11 +10,11 @@
  * Как показывать оценки. Хранятся всегда по 10-балльной шкале.
  * AUTO — шкала выбирается по типу тайтла, см. /users/me/rating-scales
  */
-export type ProfileResponseRatingScale =
-  (typeof ProfileResponseRatingScale)[keyof typeof ProfileResponseRatingScale]
+export type ProfileResponseRatingScale = typeof ProfileResponseRatingScale[keyof typeof ProfileResponseRatingScale];
+
 
 export const ProfileResponseRatingScale = {
   AUTO: 'AUTO',
   FIVE: 'FIVE',
-  TEN: 'TEN'
-} as const
+  TEN: 'TEN',
+} as const;

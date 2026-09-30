@@ -10,11 +10,11 @@
  * Предпочтительная шкала отображения. На бэкенде оценки всегда
  * десятибалльные — фронт делит на 2, когда выбрана пятибалльная
  */
-export type UpdateProfileDtoRatingScale =
-  (typeof UpdateProfileDtoRatingScale)[keyof typeof UpdateProfileDtoRatingScale]
+export type UpdateProfileDtoRatingScale = typeof UpdateProfileDtoRatingScale[keyof typeof UpdateProfileDtoRatingScale];
+
 
 export const UpdateProfileDtoRatingScale = {
   AUTO: 'AUTO',
   FIVE: 'FIVE',
-  TEN: 'TEN'
-} as const
+  TEN: 'TEN',
+} as const;

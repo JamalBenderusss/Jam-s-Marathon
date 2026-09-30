@@ -5,18 +5,18 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { CollectionOwnerResponse } from './collectionOwnerResponse'
-import type { TitleListItemResponse } from './titleListItemResponse'
+import type { CollectionOwnerResponse } from './collectionOwnerResponse';
+import type { TitleListItemResponse } from './titleListItemResponse';
 
 export interface PublicCollectionResponse {
-  name: string
-  slug: string
+  name: string;
+  slug: string;
   /** @nullable */
-  description: string | null
+  description: string | null;
   /** @nullable */
-  coverUrl: string | null
-  titlesCount: number
-  titles: TitleListItemResponse[]
-  owner: CollectionOwnerResponse
-  createdAt: string
+  coverUrl: string | null;
+  titlesCount: number;
+  titles: TitleListItemResponse[];
+  owner: CollectionOwnerResponse;
+  createdAt: string;
 }

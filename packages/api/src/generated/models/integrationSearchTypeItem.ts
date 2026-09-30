@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type IntegrationSearchTypeItem =
-  (typeof IntegrationSearchTypeItem)[keyof typeof IntegrationSearchTypeItem]
+export type IntegrationSearchTypeItem = typeof IntegrationSearchTypeItem[keyof typeof IntegrationSearchTypeItem];
+
 
 export const IntegrationSearchTypeItem = {
   GAME: 'GAME',
   MOVIE: 'MOVIE',
   TV_SHOW: 'TV_SHOW',
   BOOK: 'BOOK',
-  ANIME: 'ANIME'
-} as const
+  ANIME: 'ANIME',
+} as const;

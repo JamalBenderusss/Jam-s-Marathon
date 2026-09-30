@@ -5,9 +5,9 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { AuthUserResponse } from './authUserResponse'
+import type { AuthUserResponse } from './authUserResponse';
 
 export interface AuthResponse {
-  user: AuthUserResponse
-  accessToken: string
+  user: AuthUserResponse;
+  accessToken: string;
 }

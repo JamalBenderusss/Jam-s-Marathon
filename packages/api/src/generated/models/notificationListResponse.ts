@@ -5,10 +5,10 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { NotificationResponse } from './notificationResponse'
+import type { NotificationResponse } from './notificationResponse';
 
 export interface NotificationListResponse {
-  items: NotificationResponse[]
-  isHasMore: boolean
-  unreadCount: number
+  items: NotificationResponse[];
+  isHasMore: boolean;
+  unreadCount: number;
 }

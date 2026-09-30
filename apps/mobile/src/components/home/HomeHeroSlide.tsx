@@ -9,10 +9,10 @@ import Animated, {
 
 import { colors } from '@app/tokens'
 
-import type { TitleListItemResponse } from '@app/api'
+import type {DiscoverItemResponse} from '@app/api'
 
 interface Props {
-  item: TitleListItemResponse
+  item: Pick<DiscoverItemResponse, 'coverUrl'>
   index: number
   width: number
   height: number

@@ -9,11 +9,11 @@
 /**
  * Что выбрал пользователь
  */
-export type RatingScaleRuleResponseScale =
-  (typeof RatingScaleRuleResponseScale)[keyof typeof RatingScaleRuleResponseScale]
+export type RatingScaleRuleResponseScale = typeof RatingScaleRuleResponseScale[keyof typeof RatingScaleRuleResponseScale];
+
 
 export const RatingScaleRuleResponseScale = {
   AUTO: 'AUTO',
   FIVE: 'FIVE',
-  TEN: 'TEN'
-} as const
+  TEN: 'TEN',
+} as const;

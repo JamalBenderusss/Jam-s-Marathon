@@ -6,11 +6,11 @@
  * OpenAPI spec version: 1.0
  */
 
-export type PickerDtoDuration =
-  (typeof PickerDtoDuration)[keyof typeof PickerDtoDuration]
+export type PickerDtoDuration = typeof PickerDtoDuration[keyof typeof PickerDtoDuration];
+
 
 export const PickerDtoDuration = {
   short: 'short',
   medium: 'medium',
-  long: 'long'
-} as const
+  long: 'long',
+} as const;

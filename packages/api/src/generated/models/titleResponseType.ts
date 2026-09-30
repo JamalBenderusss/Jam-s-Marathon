@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type TitleResponseType =
-  (typeof TitleResponseType)[keyof typeof TitleResponseType]
+export type TitleResponseType = typeof TitleResponseType[keyof typeof TitleResponseType];
+
 
 export const TitleResponseType = {
   GAME: 'GAME',
   MOVIE: 'MOVIE',
   TV_SHOW: 'TV_SHOW',
   BOOK: 'BOOK',
-  ANIME: 'ANIME'
-} as const
+  ANIME: 'ANIME',
+} as const;

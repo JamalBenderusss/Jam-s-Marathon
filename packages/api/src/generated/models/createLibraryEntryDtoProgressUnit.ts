@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateLibraryEntryDtoProgressUnit =
-  (typeof CreateLibraryEntryDtoProgressUnit)[keyof typeof CreateLibraryEntryDtoProgressUnit]
+export type CreateLibraryEntryDtoProgressUnit = typeof CreateLibraryEntryDtoProgressUnit[keyof typeof CreateLibraryEntryDtoProgressUnit];
+
 
 export const CreateLibraryEntryDtoProgressUnit = {
   EPISODE: 'EPISODE',
   CHAPTER: 'CHAPTER',
   PAGE: 'PAGE',
   HOUR: 'HOUR',
-  PERCENT: 'PERCENT'
-} as const
+  PERCENT: 'PERCENT',
+} as const;

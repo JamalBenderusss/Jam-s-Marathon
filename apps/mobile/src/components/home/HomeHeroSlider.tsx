@@ -1,4 +1,3 @@
-import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
@@ -18,14 +17,16 @@ import Animated, {
 
 import { colors, fontSize, fontWeight, radius, space } from '@app/tokens'
 
-import type { TitleListItemResponse } from '@app/api'
+import type {DiscoverItemResponse, DiscoverItemResponseType, TitleListItemResponse} from '@app/api'
 
 import { PaginationDot } from '@/components/home/PaginationDot'
 import { Button } from '@/components/ui/button'
 import {HomeHeroSlide} from "@/components/home/HomeHeroSlide";
+import {TitleInfo} from "@/components/hero/TitleInfo";
+import {router} from "expo-router";
 
 interface Props {
-  items: TitleListItemResponse[]
+  items: DiscoverItemResponse[]
 }
 
 export function HomeHeroSlider({ items }: Props) {
@@ -54,7 +55,7 @@ export function HomeHeroSlider({ items }: Props) {
       >
         {items.map((item, i) => (
           <HomeHeroSlide
-            key={item.id}
+            key={item.key}
             item={item}
             index={i}
             width={width}
@@ -79,28 +80,19 @@ export function HomeHeroSlider({ items }: Props) {
         pointerEvents='box-none'
       >
         <Animated.View
-          key={current?.id}
+          key={current?.key}
           entering={FadeIn.duration(400)}
           exiting={FadeOut.duration(200)}
           style={{ gap: space[2] }}
           pointerEvents='none'
         >
-          <Text
-            style={styles.name}
-            numberOfLines={2}
-          >
-            {current?.name}
-          </Text>
+          <TitleInfo
+            name={current?.name || ''}
+            meta={current?.genres.slice(0,3).join(' - ')}
+            description='Когда ты ставишь StyleSheet.absoluteFill, ScrollView растягивается
+            на весь родительский View.'
+          />
 
-          <Text style={styles.genres}>Thrilles * Dramas * Actions * Crime</Text>
-
-          <Text
-            style={styles.description}
-            numberOfLines={2}
-          >
-            Когда ты ставишь StyleSheet.absoluteFill, ScrollView растягивается
-            на весь родительский View.
-          </Text>
         </Animated.View>
 
         <View
@@ -110,7 +102,9 @@ export function HomeHeroSlider({ items }: Props) {
           <View style={styles.actions}>
             <Button
               icon={Play}
-              onPress={() => {}}
+              onPress={() => {
+                router.push(`/title/${current?.key}`)
+              }}
             >
               Watch Movie
             </Button>
@@ -126,7 +120,7 @@ export function HomeHeroSlider({ items }: Props) {
             {items.map((item, i) => {
               return (
                 <PaginationDot
-                  key={item.id}
+                  key={item.key}
                   index={i}
                   width={width}
                   scrollX={ScrollX}

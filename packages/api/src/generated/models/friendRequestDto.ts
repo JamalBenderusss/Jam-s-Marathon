@@ -7,5 +7,5 @@
  */
 
 export interface FriendRequestDto {
-  username: string
+  username: string;
 }

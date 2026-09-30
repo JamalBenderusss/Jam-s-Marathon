@@ -5,30 +5,30 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { UpdateProfileDtoRatingScale } from './updateProfileDtoRatingScale'
+import type { UpdateProfileDtoRatingScale } from './updateProfileDtoRatingScale';
 
 export interface UpdateProfileDto {
   /**
-   * При регистрации выдаётся случайный — здесь юзер меняет его на свой
-   * @minLength 3
-   * @maxLength 30
-   * @pattern ^[a-zA-Z0-9_]+$
-   */
-  username?: string
+     * При регистрации выдаётся случайный — здесь юзер меняет его на свой
+     * @minLength 3
+     * @maxLength 30
+     * @pattern ^[a-zA-Z0-9_]+$
+     */
+  username?: string;
   /** @maxLength 50 */
-  displayName?: string
+  displayName?: string;
   /** @maxLength 500 */
-  bio?: string
+  bio?: string;
   /** @maxLength 500 */
-  avatarUrl?: string
+  avatarUrl?: string;
   /** @maxLength 60 */
-  country?: string
-  birthDate?: string
+  country?: string;
+  birthDate?: string;
   /** Открыт ли Taste DNA по публичной ссылке */
-  isPublic?: boolean
+  isPublic?: boolean;
   /**
-   * Предпочтительная шкала отображения. На бэкенде оценки всегда
-   * десятибалльные — фронт делит на 2, когда выбрана пятибалльная
-   */
-  ratingScale?: UpdateProfileDtoRatingScale
+     * Предпочтительная шкала отображения. На бэкенде оценки всегда
+     * десятибалльные — фронт делит на 2, когда выбрана пятибалльная
+     */
+  ratingScale?: UpdateProfileDtoRatingScale;
 }

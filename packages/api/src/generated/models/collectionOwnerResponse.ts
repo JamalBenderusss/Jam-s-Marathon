@@ -7,9 +7,9 @@
  */
 
 export interface CollectionOwnerResponse {
-  username: string
+  username: string;
   /** @nullable */
-  displayName: string | null
+  displayName: string | null;
   /** @nullable */
-  avatarUrl: string | null
+  avatarUrl: string | null;
 }

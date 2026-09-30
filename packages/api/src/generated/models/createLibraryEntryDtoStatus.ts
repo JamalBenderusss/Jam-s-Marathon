@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateLibraryEntryDtoStatus =
-  (typeof CreateLibraryEntryDtoStatus)[keyof typeof CreateLibraryEntryDtoStatus]
+export type CreateLibraryEntryDtoStatus = typeof CreateLibraryEntryDtoStatus[keyof typeof CreateLibraryEntryDtoStatus];
+
 
 export const CreateLibraryEntryDtoStatus = {
   PLANNED: 'PLANNED',
   IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED',
   ON_HOLD: 'ON_HOLD',
-  DROPPED: 'DROPPED'
-} as const
+  DROPPED: 'DROPPED',
+} as const;

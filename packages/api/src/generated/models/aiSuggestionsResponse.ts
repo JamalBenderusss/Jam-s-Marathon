@@ -5,8 +5,8 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { AiSuggestionResponse } from './aiSuggestionResponse'
+import type { AiSuggestionResponse } from './aiSuggestionResponse';
 
 export interface AiSuggestionsResponse {
-  items: AiSuggestionResponse[]
+  items: AiSuggestionResponse[];
 }

@@ -9,4 +9,4 @@
 /**
  * Какую шкалу показывать для каждого типа при текущей настройке
  */
-export type RatingScaleRuleResponseByType = { [key: string]: unknown }
+export type RatingScaleRuleResponseByType = { [key: string]: unknown };

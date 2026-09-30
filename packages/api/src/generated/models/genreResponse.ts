@@ -7,7 +7,7 @@
  */
 
 export interface GenreResponse {
-  id: string
-  name: string
-  slug: string
+  id: string;
+  name: string;
+  slug: string;
 }

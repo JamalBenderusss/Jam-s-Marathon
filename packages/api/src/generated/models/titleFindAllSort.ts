@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type TitleFindAllSort =
-  (typeof TitleFindAllSort)[keyof typeof TitleFindAllSort]
+export type TitleFindAllSort = typeof TitleFindAllSort[keyof typeof TitleFindAllSort];
+
 
 export const TitleFindAllSort = {
   name: 'name',
   rating: 'rating',
   newest: 'newest',
-  popular: 'popular'
-} as const
+  popular: 'popular',
+} as const;

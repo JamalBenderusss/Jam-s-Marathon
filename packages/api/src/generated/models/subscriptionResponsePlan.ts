@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type SubscriptionResponsePlan =
-  (typeof SubscriptionResponsePlan)[keyof typeof SubscriptionResponsePlan]
+export type SubscriptionResponsePlan = typeof SubscriptionResponsePlan[keyof typeof SubscriptionResponsePlan];
+
 
 export const SubscriptionResponsePlan = {
   FREE: 'FREE',
-  PRO: 'PRO'
-} as const
+  PRO: 'PRO',
+} as const;

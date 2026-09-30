@@ -5,23 +5,23 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { UpdateLibraryEntryDtoProgressUnit } from './updateLibraryEntryDtoProgressUnit'
-import type { UpdateLibraryEntryDtoStatus } from './updateLibraryEntryDtoStatus'
+import type { UpdateLibraryEntryDtoProgressUnit } from './updateLibraryEntryDtoProgressUnit';
+import type { UpdateLibraryEntryDtoStatus } from './updateLibraryEntryDtoStatus';
 
 export interface UpdateLibraryEntryDto {
-  status?: UpdateLibraryEntryDtoStatus
+  status?: UpdateLibraryEntryDtoStatus;
   /** @minimum 0 */
-  progress?: number
-  progressUnit?: UpdateLibraryEntryDtoProgressUnit
+  progress?: number;
+  progressUnit?: UpdateLibraryEntryDtoProgressUnit;
   /**
-   * @minimum 1
-   * @maximum 10
-   */
-  rating?: number
+     * @minimum 1
+     * @maximum 10
+     */
+  rating?: number;
   /** @maxLength 1000 */
-  note?: string
-  isFavorite?: boolean
+  note?: string;
+  isFavorite?: boolean;
   /** Если не прислать — проставится автоматически по статусу */
-  startedAt?: string
-  finishedAt?: string
+  startedAt?: string;
+  finishedAt?: string;
 }

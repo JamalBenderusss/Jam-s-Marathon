@@ -8,8 +8,8 @@
 
 export interface ShareCollectionDto {
   /**
-   * @minItems 1
-   * @maxItems 20
-   */
-  friendIds: string[]
+     * @minItems 1
+     * @maxItems 20
+     */
+  friendIds: string[];
 }

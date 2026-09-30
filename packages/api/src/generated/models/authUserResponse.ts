@@ -5,11 +5,11 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { AuthUserResponseRole } from './authUserResponseRole'
+import type { AuthUserResponseRole } from './authUserResponseRole';
 
 export interface AuthUserResponse {
-  id: string
-  email: string
-  username: string
-  role: AuthUserResponseRole
+  id: string;
+  email: string;
+  username: string;
+  role: AuthUserResponseRole;
 }

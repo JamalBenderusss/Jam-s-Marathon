@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ImportTitleDtoSource =
-  (typeof ImportTitleDtoSource)[keyof typeof ImportTitleDtoSource]
+export type ImportTitleDtoSource = typeof ImportTitleDtoSource[keyof typeof ImportTitleDtoSource];
+
 
 export const ImportTitleDtoSource = {
   TMDB: 'TMDB',
   RAWG: 'RAWG',
   GOOGLE_BOOKS: 'GOOGLE_BOOKS',
-  SHIKIMORI: 'SHIKIMORI'
-} as const
+  SHIKIMORI: 'SHIKIMORI',
+} as const;

@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type LibraryFindAllTypeItem =
-  (typeof LibraryFindAllTypeItem)[keyof typeof LibraryFindAllTypeItem]
+export type LibraryFindAllTypeItem = typeof LibraryFindAllTypeItem[keyof typeof LibraryFindAllTypeItem];
+
 
 export const LibraryFindAllTypeItem = {
   GAME: 'GAME',
   MOVIE: 'MOVIE',
   TV_SHOW: 'TV_SHOW',
   BOOK: 'BOOK',
-  ANIME: 'ANIME'
-} as const
+  ANIME: 'ANIME',
+} as const;

@@ -5,12 +5,12 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { IntegrationSearchTypeItem } from './integrationSearchTypeItem'
+import type { IntegrationSearchTypeItem } from './integrationSearchTypeItem';
 
 export type IntegrationSearchParams = {
-  /**
-   * @minLength 2
-   */
-  q: string
-  type?: IntegrationSearchTypeItem[]
-}
+/**
+ * @minLength 2
+ */
+q: string;
+type?: IntegrationSearchTypeItem[];
+};

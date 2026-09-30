@@ -8,12 +8,12 @@
 
 export interface SubscriptionLimitsResponse {
   /**
-   * null означает «без ограничений»
-   * @nullable
-   */
-  collections: number | null
+     * null означает «без ограничений»
+     * @nullable
+     */
+  collections: number | null;
   /** @nullable */
-  libraryEntries: number | null
+  libraryEntries: number | null;
   /** @nullable */
-  aiRequestsPerDay: number | null
+  aiRequestsPerDay: number | null;
 }

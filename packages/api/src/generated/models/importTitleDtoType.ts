@@ -9,13 +9,13 @@
 /**
  * TMDB отдаёт фильмы и сериалы по разным путям — тип нужен ему
  */
-export type ImportTitleDtoType =
-  (typeof ImportTitleDtoType)[keyof typeof ImportTitleDtoType]
+export type ImportTitleDtoType = typeof ImportTitleDtoType[keyof typeof ImportTitleDtoType];
+
 
 export const ImportTitleDtoType = {
   GAME: 'GAME',
   MOVIE: 'MOVIE',
   TV_SHOW: 'TV_SHOW',
   BOOK: 'BOOK',
-  ANIME: 'ANIME'
-} as const
+  ANIME: 'ANIME',
+} as const;

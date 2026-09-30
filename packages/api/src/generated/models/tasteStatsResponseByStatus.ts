@@ -9,4 +9,4 @@
 /**
  * Сколько записей в каждом статусе
  */
-export type TasteStatsResponseByStatus = { [key: string]: number }
+export type TasteStatsResponseByStatus = {[key: string]: number};

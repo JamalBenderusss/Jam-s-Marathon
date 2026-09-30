@@ -5,13 +5,13 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { VerifyPurchaseDtoProvider } from './verifyPurchaseDtoProvider'
+import type { VerifyPurchaseDtoProvider } from './verifyPurchaseDtoProvider';
 
 export interface VerifyPurchaseDto {
-  provider: VerifyPurchaseDtoProvider
+  provider: VerifyPurchaseDtoProvider;
   /**
-   * @minLength 4
-   * @maxLength 4000
-   */
-  token: string
+     * @minLength 4
+     * @maxLength 4000
+     */
+  token: string;
 }

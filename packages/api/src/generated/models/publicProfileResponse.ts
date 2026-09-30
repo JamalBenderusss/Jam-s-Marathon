@@ -5,18 +5,18 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { TasteStatsResponse } from './tasteStatsResponse'
+import type { TasteStatsResponse } from './tasteStatsResponse';
 
 export interface PublicProfileResponse {
-  username: string
+  username: string;
   /** @nullable */
-  displayName: string | null
+  displayName: string | null;
   /** @nullable */
-  bio: string | null
+  bio: string | null;
   /** @nullable */
-  avatarUrl: string | null
+  avatarUrl: string | null;
   /** @nullable */
-  country: string | null
-  createdAt: string
-  taste: TasteStatsResponse
+  country: string | null;
+  createdAt: string;
+  taste: TasteStatsResponse;
 }

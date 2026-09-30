@@ -7,15 +7,15 @@
  */
 
 export interface CollectionListItemResponse {
-  id: string
-  name: string
-  slug: string
+  id: string;
+  name: string;
+  slug: string;
   /** @nullable */
-  description: string | null
+  description: string | null;
   /** @nullable */
-  coverUrl: string | null
-  isPublic: boolean
-  titlesCount: number
-  createdAt: string
-  updatedAt: string
+  coverUrl: string | null;
+  isPublic: boolean;
+  titlesCount: number;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -10,12 +10,12 @@ import Animated, {
 
 import { colors, radius, space } from '@app/tokens'
 
-import type { TitleListItemResponse } from '@app/api'
+import type {DiscoverItemResponse, TitleListItemResponse} from '@app/api'
 
 import { CARD_CONFIG } from '@/components/title-card/config'
 
 interface Props {
-  title: TitleListItemResponse
+  title: Pick<DiscoverItemResponse, 'coverUrl' | 'type'>
   onPress: () => void
 }
 

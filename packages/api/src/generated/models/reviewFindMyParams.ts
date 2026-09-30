@@ -5,18 +5,18 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ReviewFindMySort } from './reviewFindMySort'
+import type { ReviewFindMySort } from './reviewFindMySort';
 
 export type ReviewFindMyParams = {
-  /**
-   * @minimum 0
-   */
-  skip?: number
-  /**
-   * @minimum 1
-   * @maximum 100
-   */
-  take?: number
-  searchTerm?: string
-  sort?: ReviewFindMySort
-}
+/**
+ * @minimum 0
+ */
+skip?: number;
+/**
+ * @minimum 1
+ * @maximum 100
+ */
+take?: number;
+searchTerm?: string;
+sort?: ReviewFindMySort;
+};

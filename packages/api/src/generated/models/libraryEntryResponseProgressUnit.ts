@@ -9,14 +9,13 @@
 /**
  * @nullable
  */
-export type LibraryEntryResponseProgressUnit =
-  | (typeof LibraryEntryResponseProgressUnit)[keyof typeof LibraryEntryResponseProgressUnit]
-  | null
+export type LibraryEntryResponseProgressUnit = typeof LibraryEntryResponseProgressUnit[keyof typeof LibraryEntryResponseProgressUnit] | null;
+
 
 export const LibraryEntryResponseProgressUnit = {
   EPISODE: 'EPISODE',
   CHAPTER: 'CHAPTER',
   PAGE: 'PAGE',
   HOUR: 'HOUR',
-  PERCENT: 'PERCENT'
-} as const
+  PERCENT: 'PERCENT',
+} as const;

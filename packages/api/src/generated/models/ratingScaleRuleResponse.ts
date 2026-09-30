@@ -5,12 +5,12 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { RatingScaleRuleResponseByType } from './ratingScaleRuleResponseByType'
-import type { RatingScaleRuleResponseScale } from './ratingScaleRuleResponseScale'
+import type { RatingScaleRuleResponseByType } from './ratingScaleRuleResponseByType';
+import type { RatingScaleRuleResponseScale } from './ratingScaleRuleResponseScale';
 
 export interface RatingScaleRuleResponse {
   /** Что выбрал пользователь */
-  scale: RatingScaleRuleResponseScale
+  scale: RatingScaleRuleResponseScale;
   /** Какую шкалу показывать для каждого типа при текущей настройке */
-  byType: RatingScaleRuleResponseByType
+  byType: RatingScaleRuleResponseByType;
 }

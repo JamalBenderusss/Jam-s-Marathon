@@ -5,17 +5,17 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ReviewAuthorResponse } from './reviewAuthorResponse'
-import type { TitleListItemResponse } from './titleListItemResponse'
+import type { ReviewAuthorResponse } from './reviewAuthorResponse';
+import type { TitleListItemResponse } from './titleListItemResponse';
 
 export interface MyReviewResponse {
-  id: string
-  rating: number
+  id: string;
+  rating: number;
   /** @nullable */
-  text: string | null
-  isPublic: boolean
-  author: ReviewAuthorResponse
-  createdAt: string
-  updatedAt: string
-  title: TitleListItemResponse
+  text: string | null;
+  isPublic: boolean;
+  author: ReviewAuthorResponse;
+  createdAt: string;
+  updatedAt: string;
+  title: TitleListItemResponse;
 }

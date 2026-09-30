@@ -5,9 +5,9 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ReviewResponse } from './reviewResponse'
+import type { ReviewResponse } from './reviewResponse';
 
 export interface ReviewListResponse {
-  items: ReviewResponse[]
-  isHasMore: boolean
+  items: ReviewResponse[];
+  isHasMore: boolean;
 }

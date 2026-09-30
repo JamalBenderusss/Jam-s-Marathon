@@ -7,10 +7,10 @@
  */
 
 export interface FriendResponse {
-  id: string
-  username: string
+  id: string;
+  username: string;
   /** @nullable */
-  displayName: string | null
+  displayName: string | null;
   /** @nullable */
-  avatarUrl: string | null
+  avatarUrl: string | null;
 }

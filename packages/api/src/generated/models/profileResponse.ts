@@ -5,23 +5,23 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ProfileResponseRatingScale } from './profileResponseRatingScale'
+import type { ProfileResponseRatingScale } from './profileResponseRatingScale';
 
 export interface ProfileResponse {
   /** @nullable */
-  displayName: string | null
+  displayName: string | null;
   /** @nullable */
-  bio: string | null
+  bio: string | null;
   /** @nullable */
-  avatarUrl: string | null
+  avatarUrl: string | null;
   /** @nullable */
-  country: string | null
+  country: string | null;
   /** @nullable */
-  birthDate: string | null
-  isPublic: boolean
+  birthDate: string | null;
+  isPublic: boolean;
   /**
-   * Как показывать оценки. Хранятся всегда по 10-балльной шкале.
-   * AUTO — шкала выбирается по типу тайтла, см. /users/me/rating-scales
-   */
-  ratingScale: ProfileResponseRatingScale
+     * Как показывать оценки. Хранятся всегда по 10-балльной шкале.
+     * AUTO — шкала выбирается по типу тайтла, см. /users/me/rating-scales
+     */
+  ratingScale: ProfileResponseRatingScale;
 }

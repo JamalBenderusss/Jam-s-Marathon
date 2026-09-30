@@ -5,16 +5,16 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ProfileResponse } from './profileResponse'
-import type { UserResponseRole } from './userResponseRole'
+import type { ProfileResponse } from './profileResponse';
+import type { UserResponseRole } from './userResponseRole';
 
 export interface UserResponse {
-  id: string
-  email: string
-  username: string
-  role: UserResponseRole
-  isVerified: boolean
+  id: string;
+  email: string;
+  username: string;
+  role: UserResponseRole;
+  isVerified: boolean;
   /** @nullable */
-  profile: ProfileResponse | null
-  createdAt: string
+  profile: ProfileResponse | null;
+  createdAt: string;
 }

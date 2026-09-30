@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type VerifyPurchaseDtoProvider =
-  (typeof VerifyPurchaseDtoProvider)[keyof typeof VerifyPurchaseDtoProvider]
+export type VerifyPurchaseDtoProvider = typeof VerifyPurchaseDtoProvider[keyof typeof VerifyPurchaseDtoProvider];
+
 
 export const VerifyPurchaseDtoProvider = {
   APPLE: 'APPLE',
-  GOOGLE: 'GOOGLE'
-} as const
+  GOOGLE: 'GOOGLE',
+} as const;

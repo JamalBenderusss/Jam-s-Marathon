@@ -1,4 +1,3 @@
-// @ts-nocheck
 import expoConfig from 'eslint-config-expo/flat.js'
 import reactHooks from 'eslint-plugin-react-hooks'
 import { defineConfig } from 'eslint/config'

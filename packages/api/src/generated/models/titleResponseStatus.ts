@@ -6,11 +6,11 @@
  * OpenAPI spec version: 1.0
  */
 
-export type TitleResponseStatus =
-  (typeof TitleResponseStatus)[keyof typeof TitleResponseStatus]
+export type TitleResponseStatus = typeof TitleResponseStatus[keyof typeof TitleResponseStatus];
+
 
 export const TitleResponseStatus = {
   DRAFT: 'DRAFT',
   PUBLISHED: 'PUBLISHED',
-  ARCHIVED: 'ARCHIVED'
-} as const
+  ARCHIVED: 'ARCHIVED',
+} as const;

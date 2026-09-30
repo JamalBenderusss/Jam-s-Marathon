@@ -10,12 +10,11 @@
  * Куда вести по клику: тип объекта и его id
  * @nullable
  */
-export type NotificationResponseEntityType =
-  | (typeof NotificationResponseEntityType)[keyof typeof NotificationResponseEntityType]
-  | null
+export type NotificationResponseEntityType = typeof NotificationResponseEntityType[keyof typeof NotificationResponseEntityType] | null;
+
 
 export const NotificationResponseEntityType = {
   COLLECTION: 'COLLECTION',
   TITLE: 'TITLE',
-  REVIEW: 'REVIEW'
-} as const
+  REVIEW: 'REVIEW',
+} as const;

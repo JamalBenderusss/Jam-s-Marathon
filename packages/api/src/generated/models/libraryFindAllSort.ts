@@ -6,11 +6,11 @@
  * OpenAPI spec version: 1.0
  */
 
-export type LibraryFindAllSort =
-  (typeof LibraryFindAllSort)[keyof typeof LibraryFindAllSort]
+export type LibraryFindAllSort = typeof LibraryFindAllSort[keyof typeof LibraryFindAllSort];
+
 
 export const LibraryFindAllSort = {
   name: 'name',
   rating: 'rating',
-  recent: 'recent'
-} as const
+  recent: 'recent',
+} as const;

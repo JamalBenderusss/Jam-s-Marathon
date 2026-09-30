@@ -5,10 +5,10 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { DevicePollResponseStatus } from './devicePollResponseStatus'
+import type { DevicePollResponseStatus } from './devicePollResponseStatus';
 
 export interface DevicePollResponse {
-  status: DevicePollResponseStatus
-  accessToken?: string
-  refreshToken?: string
+  status: DevicePollResponseStatus;
+  accessToken?: string;
+  refreshToken?: string;
 }

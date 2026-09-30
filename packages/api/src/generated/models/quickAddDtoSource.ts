@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type QuickAddDtoSource =
-  (typeof QuickAddDtoSource)[keyof typeof QuickAddDtoSource]
+export type QuickAddDtoSource = typeof QuickAddDtoSource[keyof typeof QuickAddDtoSource];
+
 
 export const QuickAddDtoSource = {
   TMDB: 'TMDB',
   RAWG: 'RAWG',
   GOOGLE_BOOKS: 'GOOGLE_BOOKS',
-  SHIKIMORI: 'SHIKIMORI'
-} as const
+  SHIKIMORI: 'SHIKIMORI',
+} as const;

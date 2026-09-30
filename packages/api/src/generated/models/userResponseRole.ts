@@ -6,11 +6,11 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UserResponseRole =
-  (typeof UserResponseRole)[keyof typeof UserResponseRole]
+export type UserResponseRole = typeof UserResponseRole[keyof typeof UserResponseRole];
+
 
 export const UserResponseRole = {
   USER: 'USER',
   MODERATOR: 'MODERATOR',
-  ADMIN: 'ADMIN'
-} as const
+  ADMIN: 'ADMIN',
+} as const;

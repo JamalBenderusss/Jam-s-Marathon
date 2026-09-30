@@ -5,29 +5,29 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { NotificationActorResponse } from './notificationActorResponse'
-import type { NotificationResponseEntityType } from './notificationResponseEntityType'
-import type { NotificationResponseType } from './notificationResponseType'
+import type { NotificationActorResponse } from './notificationActorResponse';
+import type { NotificationResponseEntityType } from './notificationResponseEntityType';
+import type { NotificationResponseType } from './notificationResponseType';
 
 export interface NotificationResponse {
-  id: string
-  type: NotificationResponseType
-  title: string
-  message: string
-  isRead: boolean
+  id: string;
+  type: NotificationResponseType;
+  title: string;
+  message: string;
+  isRead: boolean;
   /** @nullable */
-  readAt: string | null
+  readAt: string | null;
   /**
-   * Куда вести по клику: тип объекта и его id
-   * @nullable
-   */
-  entityType: NotificationResponseEntityType
+     * Куда вести по клику: тип объекта и его id
+     * @nullable
+     */
+  entityType: NotificationResponseEntityType;
   /** @nullable */
-  entityId: string | null
+  entityId: string | null;
   /**
-   * Кто спровоцировал событие, если это не системное уведомление
-   * @nullable
-   */
-  actor: NotificationActorResponse | null
-  createdAt: string
+     * Кто спровоцировал событие, если это не системное уведомление
+     * @nullable
+     */
+  actor: NotificationActorResponse | null;
+  createdAt: string;
 }

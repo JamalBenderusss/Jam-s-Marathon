@@ -5,14 +5,14 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { PickerDtoDuration } from './pickerDtoDuration'
-import type { PickerDtoTypeItem } from './pickerDtoTypeItem'
+import type { PickerDtoDuration } from './pickerDtoDuration';
+import type { PickerDtoTypeItem } from './pickerDtoTypeItem';
 
 export interface PickerDto {
   /** @maxLength 200 */
-  mood?: string
-  type?: PickerDtoTypeItem[]
-  duration?: PickerDtoDuration
+  mood?: string;
+  type?: PickerDtoTypeItem[];
+  duration?: PickerDtoDuration;
   /** Не предлагать то, что уже есть в библиотеке */
-  excludeLibrary?: boolean
+  excludeLibrary?: boolean;
 }

@@ -7,5 +7,5 @@
  */
 
 export type SearchSuggestParams = {
-  q: string
-}
+q: string;
+};

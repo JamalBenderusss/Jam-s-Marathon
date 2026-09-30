@@ -7,6 +7,6 @@
  */
 
 export interface SubscriptionUsageResponse {
-  collections: number
-  libraryEntries: number
+  collections: number;
+  libraryEntries: number;
 }

@@ -9,4 +9,4 @@
 /**
  * Сколько тайтлов в библиотеке по каждому типу
  */
-export type TasteStatsResponseByType = { [key: string]: number }
+export type TasteStatsResponseByType = {[key: string]: number};

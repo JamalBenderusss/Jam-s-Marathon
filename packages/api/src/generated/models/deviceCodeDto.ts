@@ -8,5 +8,5 @@
 
 export interface DeviceCodeDto {
   /** @pattern ^\d{3}-\d{3}$ */
-  code: string
+  code: string;
 }

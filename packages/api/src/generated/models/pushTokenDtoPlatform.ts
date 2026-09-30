@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type PushTokenDtoPlatform =
-  (typeof PushTokenDtoPlatform)[keyof typeof PushTokenDtoPlatform]
+export type PushTokenDtoPlatform = typeof PushTokenDtoPlatform[keyof typeof PushTokenDtoPlatform];
+
 
 export const PushTokenDtoPlatform = {
   IOS: 'IOS',
-  ANDROID: 'ANDROID'
-} as const
+  ANDROID: 'ANDROID',
+} as const;

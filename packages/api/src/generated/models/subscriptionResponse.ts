@@ -5,22 +5,22 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { SubscriptionLimitsResponse } from './subscriptionLimitsResponse'
-import type { SubscriptionResponsePlan } from './subscriptionResponsePlan'
-import type { SubscriptionResponseStatus } from './subscriptionResponseStatus'
-import type { SubscriptionUsageResponse } from './subscriptionUsageResponse'
+import type { SubscriptionLimitsResponse } from './subscriptionLimitsResponse';
+import type { SubscriptionResponsePlan } from './subscriptionResponsePlan';
+import type { SubscriptionResponseStatus } from './subscriptionResponseStatus';
+import type { SubscriptionUsageResponse } from './subscriptionUsageResponse';
 
 export interface SubscriptionResponse {
-  plan: SubscriptionResponsePlan
-  status: SubscriptionResponseStatus
-  startsAt: string
+  plan: SubscriptionResponsePlan;
+  status: SubscriptionResponseStatus;
+  startsAt: string;
   /** @nullable */
-  endsAt: string | null
+  endsAt: string | null;
   /** @nullable */
-  canceledAt: string | null
-  autoRenew: boolean
+  canceledAt: string | null;
+  autoRenew: boolean;
   /** Активна ли подписка прямо сейчас */
-  isActive: boolean
-  limits: SubscriptionLimitsResponse
-  usage: SubscriptionUsageResponse
+  isActive: boolean;
+  limits: SubscriptionLimitsResponse;
+  usage: SubscriptionUsageResponse;
 }

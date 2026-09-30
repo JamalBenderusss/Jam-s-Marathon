@@ -8,13 +8,13 @@
 
 export interface UpdateCollectionDto {
   /**
-   * @minLength 2
-   * @maxLength 100
-   */
-  name?: string
+     * @minLength 2
+     * @maxLength 100
+     */
+  name?: string;
   /** @maxLength 500 */
-  description?: string
+  description?: string;
   /** @maxLength 500 */
-  coverUrl?: string
-  isPublic?: boolean
+  coverUrl?: string;
+  isPublic?: boolean;
 }

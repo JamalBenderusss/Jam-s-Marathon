@@ -8,15 +8,15 @@
 
 export interface UpdateReviewDto {
   /**
-   * Оценки везде десятибалльные, клиент показывает их по своей шкале
-   * @minimum 1
-   * @maximum 10
-   */
-  rating?: number
+     * Оценки везде десятибалльные, клиент показывает их по своей шкале
+     * @minimum 1
+     * @maximum 10
+     */
+  rating?: number;
   /**
-   * @minLength 10
-   * @maxLength 5000
-   */
-  text?: string
-  isPublic?: boolean
+     * @minLength 10
+     * @maxLength 5000
+     */
+  text?: string;
+  isPublic?: boolean;
 }

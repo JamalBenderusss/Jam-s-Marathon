@@ -7,6 +7,6 @@
  */
 
 export interface ImportedTitleResponse {
-  id: string
-  slug: string
+  id: string;
+  slug: string;
 }

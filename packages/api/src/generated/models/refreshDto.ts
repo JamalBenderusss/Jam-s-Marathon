@@ -7,5 +7,5 @@
  */
 
 export interface RefreshDto {
-  refreshToken: string
+  refreshToken: string;
 }

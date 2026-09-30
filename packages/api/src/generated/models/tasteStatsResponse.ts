@@ -5,17 +5,17 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { TasteStatsResponseByStatus } from './tasteStatsResponseByStatus'
-import type { TasteStatsResponseByType } from './tasteStatsResponseByType'
+import type { TasteStatsResponseByStatus } from './tasteStatsResponseByStatus';
+import type { TasteStatsResponseByType } from './tasteStatsResponseByType';
 
 export interface TasteStatsResponse {
   /** Сколько тайтлов в библиотеке по каждому типу */
-  byType: TasteStatsResponseByType
+  byType: TasteStatsResponseByType;
   /** Сколько записей в каждом статусе */
-  byStatus: TasteStatsResponseByStatus
-  totalEntries: number
-  completedCount: number
+  byStatus: TasteStatsResponseByStatus;
+  totalEntries: number;
+  completedCount: number;
   /** @nullable */
-  averageRating: number | null
-  favoriteGenres: string[]
+  averageRating: number | null;
+  favoriteGenres: string[];
 }

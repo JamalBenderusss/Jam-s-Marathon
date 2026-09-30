@@ -5,27 +5,27 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { LibraryEntryResponseProgressUnit } from './libraryEntryResponseProgressUnit'
-import type { LibraryEntryResponseStatus } from './libraryEntryResponseStatus'
-import type { TitleListItemResponse } from './titleListItemResponse'
+import type { LibraryEntryResponseProgressUnit } from './libraryEntryResponseProgressUnit';
+import type { LibraryEntryResponseStatus } from './libraryEntryResponseStatus';
+import type { TitleListItemResponse } from './titleListItemResponse';
 
 export interface LibraryEntryResponse {
-  id: string
-  status: LibraryEntryResponseStatus
+  id: string;
+  status: LibraryEntryResponseStatus;
   /** @nullable */
-  progress: number | null
+  progress: number | null;
   /** @nullable */
-  progressUnit: LibraryEntryResponseProgressUnit
+  progressUnit: LibraryEntryResponseProgressUnit;
   /** @nullable */
-  rating: number | null
+  rating: number | null;
   /** @nullable */
-  note: string | null
-  isFavorite: boolean
+  note: string | null;
+  isFavorite: boolean;
   /** @nullable */
-  startedAt: string | null
+  startedAt: string | null;
   /** @nullable */
-  finishedAt: string | null
-  title: TitleListItemResponse
-  createdAt: string
-  updatedAt: string
+  finishedAt: string | null;
+  title: TitleListItemResponse;
+  createdAt: string;
+  updatedAt: string;
 }
