@@ -2,9 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
 import {
-  ScrollView,
   StyleSheet,
-  Text,
   View,
   useWindowDimensions
 } from 'react-native'
@@ -15,15 +13,16 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 
-import { colors, fontSize, fontWeight, radius, space } from '@app/tokens'
+import { colors, fontSize, fontWeight, space } from '@app/tokens'
 
-import type {DiscoverItemResponse, DiscoverItemResponseType, TitleListItemResponse} from '@app/api'
+import type {DiscoverItemResponse } from '@app/api'
 
 import { PaginationDot } from '@/components/home/PaginationDot'
 import { Button } from '@/components/ui/button'
 import {HomeHeroSlide} from "@/components/home/HomeHeroSlide";
 import {TitleInfo} from "@/components/hero/TitleInfo";
 import {router} from "expo-router";
+import {HERO_GRADIENT} from "@/components/hero/HeroBackdrop";
 
 interface Props {
   items: DiscoverItemResponse[]
@@ -65,13 +64,8 @@ export function HomeHeroSlider({ items }: Props) {
         ))}
       </Animated.ScrollView>
       <LinearGradient
-        colors={[
-          'rgba(2,0,3,0.7)',
-          'transparent',
-          'rgba(2,0,3,0.9)',
-          colors.bg.base
-        ]}
-        locations={[0, 0.35, 0.75, 1]}
+        colors={HERO_GRADIENT.colors}
+        locations={HERO_GRADIENT.locations}
         style={StyleSheet.absoluteFill}
         pointerEvents='none'
       />

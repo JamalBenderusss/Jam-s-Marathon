@@ -6,7 +6,7 @@ import Animated, {
 
 import { space } from '@app/tokens'
 
-import {type TitleListItemResponse, useDiscoverGetTrending} from '@app/api'
+import { useDiscoverGetTrending} from '@app/api'
 
 import { HomeHeader } from '@/components/home/HomeHeader'
 import { HomeHeroSlider } from '@/components/home/HomeHeroSlider'
@@ -62,8 +62,7 @@ export default function Index() {
           >
             {trendingItems.map(title => (
                 <TitleCard
-                    onPress={() => {
-                    }}
+                    onPress={() => router.push(`/title/${title.key}`)}
                     key={title.key}
                     title={title}
                 />

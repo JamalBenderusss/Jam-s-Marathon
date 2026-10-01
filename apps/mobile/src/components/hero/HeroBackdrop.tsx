@@ -5,7 +5,7 @@ import {LinearGradient} from "expo-linear-gradient";
 
 export const HERO_GRADIENT = {
   colors: ['rgba(2,0,3,0.7)', 'transparent', 'rgba(2,0,3,0.9)', colors.bg.base],
-  location: [0, 0.35, 0.75, 1]
+  locations: [0, 0.35, 0.75, 1]
 } as const
 
 interface Props {
@@ -26,7 +26,7 @@ export function HeroBackdrop({coverUrl, height}:Props) {
 
       <LinearGradient
         colors={HERO_GRADIENT.colors}
-        locations={HERO_GRADIENT.location}
+        locations={HERO_GRADIENT.locations}
         style={StyleSheet.absoluteFill}
         pointerEvents='none'
       />
