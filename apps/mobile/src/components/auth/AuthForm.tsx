@@ -7,10 +7,10 @@ import {Screen} from "@/components/ui/Screen";
 import {Pressable, Text, View} from "react-native";
 import {Input} from "@/components/ui/Input";
 import {FloatingButton} from "@/components/ui/FloatingButton";
-import {router} from "expo-router";
-import {Button} from "@/components/ui/button";
+import {type Href, router, useLocalSearchParams} from "expo-router";
+import {Button} from "@/components/ui/Button";
 import {StyleSheet} from 'react-native'
-import {ApiError} from "@app/api";
+import {ApiError, useAuthMobileLogin} from "@app/api";
 import {colors, fontSize, fontWeight, space} from "@app/tokens";
 
 
@@ -28,6 +28,9 @@ const content = AUTH_FORM_CONTENT[type]
 const {control, handleSubmit} = useForm<TAuthForm>({
   resolver: zodResolver(authSchema)
 })
+
+const { redirect } = useLocalSearchParams<{ redirect?: Extract<Href, string> }>()
+
 
 return (
   <Screen>
@@ -84,7 +87,11 @@ return (
           onPress={() => router.replace('/')}
           side='left'
       />
-      <Pressable onPress={() => router.replace(content.footerHref)}>
+      <Pressable onPress={() =>
+        router.replace({
+          pathname: content.footerHref,
+          params: {redirect}
+      })}>
         <Text style={styles.link}>
           {content.footerText}{' '}
           <Text style={styles.linkAccent}>{content.footerAction}</Text>

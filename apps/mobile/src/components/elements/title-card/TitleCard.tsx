@@ -10,9 +10,9 @@ import Animated, {
 
 import { colors, radius, space } from '@app/tokens'
 
-import type {DiscoverItemResponse, TitleListItemResponse} from '@app/api'
+import type {DiscoverItemResponse} from '@app/api'
 
-import { CARD_CONFIG } from '@/components/title-card/config'
+import { CARD_CONFIG } from '@/components/elements/title-card/config'
 
 interface Props {
   title: Pick<DiscoverItemResponse, 'coverUrl' | 'type'>
@@ -41,7 +41,7 @@ export function TitleCard({ title, onPress }: Props) {
   return (
     <View
       style={{
-        width: 114,
+        width: 108, //+9
         height: 171
       }}
     >
@@ -100,8 +100,9 @@ export function TitleCard({ title, onPress }: Props) {
         <View style={styles.badge}>
           {isGlassEffectAPIAvailable() ? (
             <GlassView
-              style={styles.glass}
+              style={[styles.glass, {backgroundColor: config.color}]}
               glassEffectStyle='regular'
+
             >
               <config.icon
                 size={13}
@@ -110,7 +111,7 @@ export function TitleCard({ title, onPress }: Props) {
               />
             </GlassView>
           ) : (
-            <View style={[styles.glass, styles.fallback]}>
+            <View style={[styles.glass, styles.fallback, {backgroundColor: config.color}]}>
               <config.icon
                 size={13}
                 color={colors.text.primary}

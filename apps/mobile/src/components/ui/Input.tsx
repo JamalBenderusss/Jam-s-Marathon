@@ -9,17 +9,28 @@ interface Props extends TextInputProps {
   isPassword?: boolean
 }
 
-export function Input({error, isPassword, value, ...props}: Props) {
+export function Input({error, isPassword, multiline, value, onChangeText, ...props}: Props) {
   const [isHidden, setIsHidden] = useState(isPassword)
+  const [inner, setInner] = useState('')
+
+  const isControlled = value !== undefined
+  const currentValue = isControlled ? value : inner
+
+  const handleChange = (text: string) => {
+    if (!isControlled) setInner(text)
+    onChangeText?.(text)
+  }
 
   return (
     <View style={styles.root}>
-      <View style={[styles.field, !!error && styles.fieldError]}>
+      <View style={[styles.field, !!error && styles.fieldError, multiline && styles.fieldMultiline]}>
         <TextInput
-          style={ styles.input }
+          style={ [styles.input, multiline && styles.fieldMultiline] }
           placeholderTextColor={colors.text.muted}
           secureTextEntry={isPassword && isHidden}
-          value={value ?? ''}
+          value={currentValue}
+          onChangeText={handleChange}
+          multiline={multiline}
           {...props}
         />
 
@@ -59,6 +70,16 @@ const styles = StyleSheet.create({
     borderRadius: radius.full,
     borderWidth: 1,
     backgroundColor: colors.secondary,
+  },
+  fieldMultiline: {
+    height: undefined,
+    minHeight: 110,
+    alignItems: 'flex-start',
+    paddingHorizontal: space[4],
+    paddingVertical: space[4],
+    borderRadius: radius.md,
+    borderColor: 'transparent',
+    backgroundColor: colors.bg.card,
   },
   fieldError: { borderColor: colors.status.error },
   input: {

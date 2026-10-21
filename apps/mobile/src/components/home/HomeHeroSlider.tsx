@@ -12,17 +12,18 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue
 } from 'react-native-reanimated'
+import {router} from "expo-router";
 
 import { colors, fontSize, fontWeight, space } from '@app/tokens'
 
 import type {DiscoverItemResponse } from '@app/api'
 
 import { PaginationDot } from '@/components/home/PaginationDot'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import {HomeHeroSlide} from "@/components/home/HomeHeroSlide";
-import {TitleInfo} from "@/components/hero/TitleInfo";
-import {router} from "expo-router";
-import {HERO_GRADIENT} from "@/components/hero/HeroBackdrop";
+import {CARD_CONFIG, HERO_GRADIENT, TitleInfo} from "@/components/elements";
+import {useLibraryStatus} from "@/hooks";
+
 
 interface Props {
   items: DiscoverItemResponse[]
@@ -39,6 +40,11 @@ export function HomeHeroSlider({ items }: Props) {
 
   const height = width * 1.4
   const current = items[index]
+
+  if (!current) return null
+
+  // const {status, setStatus} = useLibraryStatus(current.key)
+
 
   return (
     <View style={{ height }}>
@@ -96,6 +102,8 @@ export function HomeHeroSlider({ items }: Props) {
           <View style={styles.actions}>
             <Button
               icon={Play}
+              style={{backgroundColor: CARD_CONFIG[current.type].color}}
+              variant='secondary'
               onPress={() => {
                 router.push(`/title/${current?.key}`)
               }}

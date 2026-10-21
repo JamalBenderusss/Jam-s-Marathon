@@ -8,6 +8,7 @@
 import type { ReviewFindMySort } from './reviewFindMySort';
 
 export type ReviewFindMyParams = {
+sort?: ReviewFindMySort;
 /**
  * @minimum 0
  */
@@ -18,5 +19,4 @@ skip?: number;
  */
 take?: number;
 searchTerm?: string;
-sort?: ReviewFindMySort;
 };

@@ -1,4 +1,4 @@
-import type { TitleListItemResponseType } from '@app/api/src/generated/models'
+import type { TitleListItemResponseType } from '../../../../../../packages/api/src/generated/models'
 import {
   BookOpen,
   Film,
@@ -16,24 +16,28 @@ interface ICardConfig {
   stacked?: boolean
   spine?: boolean
   glow?: string
+  color?: string
 }
 
 export const CARD_CONFIG: Record<TitleListItemResponseType, ICardConfig> = {
-  MOVIE: { radius: radius.md, icon: Film },
+  MOVIE: { radius: radius.md, icon: Film, color: 'rgba(255, 0, 0, 0.6)' },
   TV_SHOW: {
     radius: radius.md,
     icon: Tv,
-    stacked: true
+    stacked: true,
+    color: 'rgba(0, 255, 0, 0.6)'
   },
   ANIME: {
     radius: radius.md,
     icon: Sparkles,
-    glow: 'rgba(129, 65, 248, 0.6)'
+    glow: 'rgba(129, 65, 248, 0.6)',
+    color: 'rgba(129, 65, 248, 0.6)',
   },
   BOOK: {
     radius: radius.sm,
     icon: BookOpen,
-    spine: true
+    spine: true,
+    color: 'rgba(255, 255, 0, 0.6)'
   },
-  GAME: { radius: radius.lg, icon: Gamepad2 }
+  GAME: { radius: radius.lg, icon: Gamepad2, color: 'rgba(0, 0, 255, 0.6)' }
 }

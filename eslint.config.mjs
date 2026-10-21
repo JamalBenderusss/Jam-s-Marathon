@@ -26,7 +26,7 @@ export default defineConfig([
     settings: {
       'import/resolver': {
         typescript: {
-          project: './tsconfig.json'
+          project: './apps/mobile/tsconfig.json'
         }
       }
     },

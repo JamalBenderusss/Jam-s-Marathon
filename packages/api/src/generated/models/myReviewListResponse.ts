@@ -10,4 +10,5 @@ import type { MyReviewResponse } from './myReviewResponse';
 export interface MyReviewListResponse {
   items: MyReviewResponse[];
   isHasMore: boolean;
+  total: number;
 }

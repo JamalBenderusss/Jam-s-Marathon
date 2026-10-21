@@ -11,7 +11,7 @@
       "@app/schemas": ["../../packages/schemas/src"],
       "@app/api": ["../../packages/api/src"],
       "@app/hooks": ["../../packages/hooks/src"],
-      "@app/ui": ["../../packages/ui/src"]
+      "@app/ui": ["../../packages/ui/src"],
     }
   },
   "include": [

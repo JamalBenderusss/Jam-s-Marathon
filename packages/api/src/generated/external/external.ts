@@ -25,12 +25,11 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  ErrorResponse,
   ExternalTitleResponse,
   ImportTitleDto,
   ImportedTitleResponse,
-  IntegrationSearchParams,
-  LibraryEntryResponse,
-  QuickAddDto
+  IntegrationSearchParams
 } from '../models';
 
 import { http } from '../../http';
@@ -64,12 +63,19 @@ export type integrationSearchResponse200 = {
   status: 200
 }
 
+export type integrationSearchResponse429 = {
+  data: ErrorResponse
+  status: 429
+}
+
 export type integrationSearchResponseSuccess = (integrationSearchResponse200) & {
   headers: Headers;
 };
-;
+export type integrationSearchResponseError = (integrationSearchResponse429) & {
+  headers: Headers;
+};
 
-export type integrationSearchResponse = (integrationSearchResponseSuccess)
+export type integrationSearchResponse = (integrationSearchResponseSuccess | integrationSearchResponseError)
 
 export const getIntegrationSearchUrl = (params: IntegrationSearchParams,) => {
   const normalizedParams = new URLSearchParams();
@@ -95,7 +101,7 @@ export const getIntegrationSearchUrl = (params: IntegrationSearchParams,) => {
 }
 
 /**
- * @summary Поиск во внешних API — то, чего ещё нет в нашей базе
+ * @summary Публичный поиск во внешних API с лимитом запросов на IP
  */
 export const integrationSearch = async (params: IntegrationSearchParams, options?: Parameters<typeof http>[1]): Promise<integrationSearchResponse> => {
 
@@ -119,7 +125,7 @@ export const getIntegrationSearchQueryKey = (params?: IntegrationSearchParams,) 
     }
 
 
-export const getIntegrationSearchQueryOptions = <TData = Awaited<ReturnType<typeof integrationSearch>>, TError = unknown>(params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getIntegrationSearchQueryOptions = <TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -138,10 +144,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type IntegrationSearchQueryResult = NonNullable<Awaited<ReturnType<typeof integrationSearch>>>
-export type IntegrationSearchQueryError = unknown
+export type IntegrationSearchQueryError = ErrorResponse
 
 
-export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = unknown>(
+export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
  params: IntegrationSearchParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof integrationSearch>>,
@@ -151,7 +157,7 @@ export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrati
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = unknown>(
+export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
  params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof integrationSearch>>,
@@ -161,15 +167,15 @@ export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrati
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = unknown>(
+export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
  params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
- * @summary Поиск во внешних API — то, чего ещё нет в нашей базе
+ * @summary Публичный поиск во внешних API с лимитом запросов на IP
  */
 
-export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = unknown>(
+export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
  params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -284,103 +290,4 @@ export const useIntegrationImport = <TError = unknown,
         TContext
       > => {
       return useMutation(getIntegrationImportMutationOptions(options), queryClient);
-    }
-    export type integrationQuickAddResponse200 = {
-  data: LibraryEntryResponse
-  status: 200
-}
-
-export type integrationQuickAddResponseSuccess = (integrationQuickAddResponse200) & {
-  headers: Headers;
-};
-;
-
-export type integrationQuickAddResponse = (integrationQuickAddResponseSuccess)
-
-export const getIntegrationQuickAddUrl = () => {
-
-
-
-
-  return `/external/quick-add`
-}
-
-/**
- * @summary Добавление в один клик из расширения: импорт + библиотека
- */
-export const integrationQuickAdd = async (quickAddDto: QuickAddDto, options?: Parameters<typeof http>[1]): Promise<integrationQuickAddResponse> => {
-
-    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
-    if (!h) return {};
-    if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Symbol.iterator in h) {
-      return Object.fromEntries(
-        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
-      );
-    }
-    const headers: Record<string, string | readonly string[]> = {};
-    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
-      if (value !== undefined) headers[name] = value;
-    }
-    return headers;
-  };
-return http<integrationQuickAddResponse>(getIntegrationQuickAddUrl(),
-  {
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
-    body: JSON.stringify(quickAddDto)
-  }
-);}
-
-
-
-
-
-export const getIntegrationQuickAddMutationKey = () => ['integrationQuickAdd'] as const;
-
-export const getIntegrationQuickAddMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof integrationQuickAdd>>, TError,IntegrationQuickAddMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof integrationQuickAdd>>, TError,IntegrationQuickAddMutationVariables, TContext> => {
-
-const mutationKey = getIntegrationQuickAddMutationKey();
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof integrationQuickAdd>>, IntegrationQuickAddMutationVariables> = (props) => {
-          const {data} = props ?? {};
-
-          return  integrationQuickAdd(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type IntegrationQuickAddMutationResult = NonNullable<Awaited<ReturnType<typeof integrationQuickAdd>>>
-    export type IntegrationQuickAddMutationBody = QuickAddDto
-    export type IntegrationQuickAddMutationError = unknown
-    export type IntegrationQuickAddMutationVariables = {data: QuickAddDto}
-
-    /**
- * @summary Добавление в один клик из расширения: импорт + библиотека
- */
-export const useIntegrationQuickAdd = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof integrationQuickAdd>>, TError,IntegrationQuickAddMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof integrationQuickAdd>>,
-        TError,
-        IntegrationQuickAddMutationVariables,
-        TContext
-      > => {
-      return useMutation(getIntegrationQuickAddMutationOptions(options), queryClient);
     }

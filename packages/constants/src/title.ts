@@ -1,0 +1,2 @@
+export const TITLE_META_GENRES_LIMIT = 3
+export const TITLE_CREDITS_LIMIT = 3

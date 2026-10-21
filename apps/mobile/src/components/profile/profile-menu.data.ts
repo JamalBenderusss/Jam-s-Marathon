@@ -6,12 +6,12 @@ export const PROFILE_MENU = [
     icon: CreditCard,
     label: 'Subscription',
     value: 'Free',
-    onPress: () => router.push('/subscription')
+    onPress: () => router.push('/plans')
   },
   {
     icon: Heart,
     label: 'WatchList',
-    onPress: () => router.push('/library')
+    onPress: () => router.push('/(tabs)/library')
   },
   {
     icon: Users,
@@ -23,4 +23,5 @@ export const PROFILE_MENU = [
     label: 'Notifications',
     onPress: () => {}
   },
+
 ]

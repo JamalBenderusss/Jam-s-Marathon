@@ -2,14 +2,16 @@ import {useAuthMobileLogout, useUserFindMe} from "@app/api";
 import {useQueryClient} from "@tanstack/react-query";
 import {clearTokens, getRefreshToken, } from "@/lib/token";
 import {Redirect, router} from "expo-router";
-import {Screen} from '@/components/ui/Screen'
-import {View, Text, ScrollView} from "react-native";
-import {colors, fontSize, space} from "@app/tokens";
-
-import {ProfileHeader} from "@/components/profile/ProfileHeader";
-import {PROFILE_MENU} from "@/components/profile/profile-menu.data";
-import {ProfileMenuItem} from "@/components/profile/ProfileMenuItem";
 import {LogOut} from "lucide-react-native";
+import {ScrollView} from "react-native";
+import {space} from "@app/tokens";
+
+
+import {Screen} from '@/components/ui/Screen'
+import {ProfileMenuItem} from "@/components/profile/ProfileMenuItem";
+import {PROFILE_MENU} from "@/components/profile/profile-menu.data";
+import {ProfileHeader} from "@/components/profile/ProfileHeader";
+import {DeleteAccount} from "@/components/profile/DeleteAccount";
 
 export default function Profile() {
   const queryClient = useQueryClient()
@@ -58,6 +60,8 @@ export default function Profile() {
       label={isPending ? 'Logging out...' : 'Sign out'}
       onPress={handleLogout}
       isLast />
+
+      <DeleteAccount />
     </ScrollView>
   </Screen>
 }

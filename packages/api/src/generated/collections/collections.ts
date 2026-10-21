@@ -174,12 +174,12 @@ export function useCollectionFindAll<TData = Awaited<ReturnType<typeof collectio
 
 
 
-export type collectionCreateResponse200 = {
+export type collectionCreateResponse201 = {
   data: CollectionResponse
-  status: 200
+  status: 201
 }
 
-export type collectionCreateResponseSuccess = (collectionCreateResponse200) & {
+export type collectionCreateResponseSuccess = (collectionCreateResponse201) & {
   headers: Headers;
 };
 ;
@@ -853,6 +853,168 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getCollectionRemoveTitlesMutationOptions(options), queryClient);
+    }
+    export type collectionAddTitleByDiscoverKeyResponse200 = {
+  data: CollectionResponse
+  status: 200
+}
+
+export type collectionAddTitleByDiscoverKeyResponseSuccess = (collectionAddTitleByDiscoverKeyResponse200) & {
+  headers: Headers;
+};
+;
+
+export type collectionAddTitleByDiscoverKeyResponse = (collectionAddTitleByDiscoverKeyResponseSuccess)
+
+export const getCollectionAddTitleByDiscoverKeyUrl = (id: string,
+    key: string,) => {
+
+
+
+
+  return `/collections/${id}/titles/discover/${key}`
+}
+
+export const collectionAddTitleByDiscoverKey = async (id: string,
+    key: string, options?: Parameters<typeof http>[1]): Promise<collectionAddTitleByDiscoverKeyResponse> => {
+
+  return http<collectionAddTitleByDiscoverKeyResponse>(getCollectionAddTitleByDiscoverKeyUrl(id,key),
+  {
+    ...options,
+    method: 'PUT'
+
+
+  }
+);}
+
+
+
+
+
+export const getCollectionAddTitleByDiscoverKeyMutationKey = () => ['collectionAddTitleByDiscoverKey'] as const;
+
+export const getCollectionAddTitleByDiscoverKeyMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof collectionAddTitleByDiscoverKey>>, TError,CollectionAddTitleByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof collectionAddTitleByDiscoverKey>>, TError,CollectionAddTitleByDiscoverKeyMutationVariables, TContext> => {
+
+const mutationKey = getCollectionAddTitleByDiscoverKeyMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof collectionAddTitleByDiscoverKey>>, CollectionAddTitleByDiscoverKeyMutationVariables> = (props) => {
+          const {id,key} = props ?? {};
+
+          return  collectionAddTitleByDiscoverKey(id,key,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CollectionAddTitleByDiscoverKeyMutationResult = NonNullable<Awaited<ReturnType<typeof collectionAddTitleByDiscoverKey>>>
+
+    export type CollectionAddTitleByDiscoverKeyMutationError = unknown
+    export type CollectionAddTitleByDiscoverKeyMutationVariables = {id: string;key: string}
+
+    export const useCollectionAddTitleByDiscoverKey = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof collectionAddTitleByDiscoverKey>>, TError,CollectionAddTitleByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof collectionAddTitleByDiscoverKey>>,
+        TError,
+        CollectionAddTitleByDiscoverKeyMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCollectionAddTitleByDiscoverKeyMutationOptions(options), queryClient);
+    }
+    export type collectionRemoveTitleByDiscoverKeyResponse204 = {
+  data: void
+  status: 204
+}
+
+export type collectionRemoveTitleByDiscoverKeyResponseSuccess = (collectionRemoveTitleByDiscoverKeyResponse204) & {
+  headers: Headers;
+};
+;
+
+export type collectionRemoveTitleByDiscoverKeyResponse = (collectionRemoveTitleByDiscoverKeyResponseSuccess)
+
+export const getCollectionRemoveTitleByDiscoverKeyUrl = (id: string,
+    key: string,) => {
+
+
+
+
+  return `/collections/${id}/titles/discover/${key}`
+}
+
+export const collectionRemoveTitleByDiscoverKey = async (id: string,
+    key: string, options?: Parameters<typeof http>[1]): Promise<collectionRemoveTitleByDiscoverKeyResponse> => {
+
+  return http<collectionRemoveTitleByDiscoverKeyResponse>(getCollectionRemoveTitleByDiscoverKeyUrl(id,key),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getCollectionRemoveTitleByDiscoverKeyMutationKey = () => ['collectionRemoveTitleByDiscoverKey'] as const;
+
+export const getCollectionRemoveTitleByDiscoverKeyMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof collectionRemoveTitleByDiscoverKey>>, TError,CollectionRemoveTitleByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof collectionRemoveTitleByDiscoverKey>>, TError,CollectionRemoveTitleByDiscoverKeyMutationVariables, TContext> => {
+
+const mutationKey = getCollectionRemoveTitleByDiscoverKeyMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof collectionRemoveTitleByDiscoverKey>>, CollectionRemoveTitleByDiscoverKeyMutationVariables> = (props) => {
+          const {id,key} = props ?? {};
+
+          return  collectionRemoveTitleByDiscoverKey(id,key,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CollectionRemoveTitleByDiscoverKeyMutationResult = NonNullable<Awaited<ReturnType<typeof collectionRemoveTitleByDiscoverKey>>>
+
+    export type CollectionRemoveTitleByDiscoverKeyMutationError = unknown
+    export type CollectionRemoveTitleByDiscoverKeyMutationVariables = {id: string;key: string}
+
+    export const useCollectionRemoveTitleByDiscoverKey = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof collectionRemoveTitleByDiscoverKey>>, TError,CollectionRemoveTitleByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof collectionRemoveTitleByDiscoverKey>>,
+        TError,
+        CollectionRemoveTitleByDiscoverKeyMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCollectionRemoveTitleByDiscoverKeyMutationOptions(options), queryClient);
     }
     export type collectionShareResponse200 = {
   data: boolean

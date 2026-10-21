@@ -1,5 +1,3 @@
-// pnpm --filter @app/constants add @app/api
-
 import type {CreatorRole} from "@app/api";
 
 export const CREATOR_ROLE_LABEL: Record<CreatorRole, string> = {

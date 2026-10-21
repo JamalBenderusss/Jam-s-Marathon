@@ -38,7 +38,7 @@ export function SectionCarousel({ title, onPressArrow, children }: Props) {
 }
 
 const styles = StyleSheet.create({
-  root: { gap: space[3], marginBottom: space[3] },
+  root: { gap: space[3], marginBottom: space[8] },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

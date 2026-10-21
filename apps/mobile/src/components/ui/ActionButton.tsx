@@ -7,9 +7,10 @@ interface Props {
   icon: LucideIcon
   label: string
   onPress: () => void
+  isActive?: boolean
 }
 
-export function ActionButton({icon: Icon, label, onPress}: Props) {
+export function ActionButton({icon: Icon, label, onPress, isActive}: Props) {
   return (
     <Pressable
       onPress={onPress}
@@ -19,6 +20,8 @@ export function ActionButton({icon: Icon, label, onPress}: Props) {
         <Icon
           size={20}
           color={colors.text.primary}
+          style={{marginTop: space[3]}}
+          fill={isActive ? colors.text.primary : 'none'}
         />
       </View>
 

@@ -1,6 +1,6 @@
 import type { LucideIcon } from 'lucide-react-native'
 import React from 'react'
-import { Pressable, StyleSheet, Text } from 'react-native'
+import {Pressable, type StyleProp, StyleSheet, Text, type ViewStyle} from 'react-native'
 
 import type { TButtonSize, TButtonVariant } from '@app/types'
 
@@ -11,13 +11,14 @@ interface Props {
   variant?: TButtonVariant
   size?: TButtonSize
   icon?: LucideIcon
+  style?: StyleProp<ViewStyle>
   isDisabled?: boolean
   onPress: () => void
 }
 
 const CONTENT_COLOR: Record<TButtonVariant, string> = {
   primary: colors.text.secondary,
-  secondary: colors.text.primary
+  secondary: colors.text.primary,
 }
 
 const ICON_SIZE: Record<TButtonSize, number> = {
@@ -30,6 +31,7 @@ export function Button({
   variant = 'primary',
   size = 'md',
   icon: Icon,
+  style,
   isDisabled,
   onPress
 }: Props) {
@@ -45,6 +47,7 @@ export function Button({
         variantStyles[variant],
         sizeStyles[size],
         isIconOnly && [styles.iconOnly, iconOnlySizes[size]],
+        style,
         pressed && styles.pressed,
         isDisabled && styles.disabled
       ]}
@@ -80,7 +83,12 @@ const styles = StyleSheet.create({
 
 const variantStyles = StyleSheet.create({
   primary: { backgroundColor: colors.primary },
-  secondary: { backgroundColor: colors.secondary }
+  secondary: { backgroundColor: colors.secondary },
+  MOVIE: {backgroundColor: 'rgba(255, 0, 0, 0.6)' },
+  GAME: {backgroundColor: 'rgba(0, 0, 255, 0.6)'  },
+  TV_SHOW: {backgroundColor: 'rgba(0, 255, 0, 0.6)' },
+  ANIME: {backgroundColor:'rgba(129, 65, 248, 0.6)' },
+  BOOK: {backgroundColor: 'rgba(255, 255, 0, 0.6)'}
 })
 
 const sizeStyles = StyleSheet.create({
