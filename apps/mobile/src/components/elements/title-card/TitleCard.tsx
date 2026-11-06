@@ -1,4 +1,3 @@
-import { GlassView, isGlassEffectAPIAvailable } from 'expo-glass-effect'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Pressable, StyleSheet, View } from 'react-native'
@@ -13,15 +12,18 @@ import { colors, radius, space } from '@app/tokens'
 import type {DiscoverItemResponse} from '@app/api'
 
 import { CARD_CONFIG } from '@/components/elements/title-card/config'
+import type {ReactNode} from "react";
+import { GlassBadge } from "@/components/ui"
 
 interface Props {
   title: Pick<DiscoverItemResponse, 'coverUrl' | 'type'>
   onPress: () => void
+  badge?: ReactNode
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-export function TitleCard({ title, onPress }: Props) {
+export function TitleCard({ title, onPress, badge }: Props) {
   const config = CARD_CONFIG[title.type]
 
   const scale = useSharedValue(1)
@@ -97,29 +99,27 @@ export function TitleCard({ title, onPress }: Props) {
           </>
         )}
 
-        <View style={styles.badge}>
-          {isGlassEffectAPIAvailable() ? (
-            <GlassView
-              style={[styles.glass, {backgroundColor: config.color}]}
-              glassEffectStyle='regular'
-
-            >
-              <config.icon
-                size={13}
-                color={colors.text.primary}
-                strokeWidth={2.2}
-              />
-            </GlassView>
-          ) : (
-            <View style={[styles.glass, styles.fallback, {backgroundColor: config.color}]}>
-              <config.icon
-                size={13}
-                color={colors.text.primary}
-                strokeWidth={2.2}
-              />
-            </View>
-          )}
+        <View style={[styles.badge, styles.badgeLeft, ]}>
+          <GlassBadge
+            size='sm'
+          >
+            <config.icon
+              size={13}
+              color={colors.text.primary}
+              strokeWidth={2.2}
+            />
+          </GlassBadge>
         </View>
+
+        {!!badge && (
+          <View style={[styles.badge, styles.badgeRight]}>
+            <GlassBadge
+              size='sm'
+            >
+              {badge}
+            </GlassBadge>
+          </View>
+        )}
       </AnimatedPressable>
     </View>
   )
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
     backgroundColor: colors.bg.card
-    // marginRight: 10
   },
   stack: {
     position: 'absolute',
@@ -156,8 +155,8 @@ const styles = StyleSheet.create({
   },
   badge: {
     position: 'absolute',
-    left: space[2],
-    bottom: space[2]
+    bottom: space[2],
+    borderRadius: radius.full,
   },
   glass: {
     width: 26,
@@ -167,6 +166,8 @@ const styles = StyleSheet.create({
     borderRadius: radius.full,
     overflow: 'hidden'
   },
+  badgeLeft: { left: space[2]},
+  badgeRight: { right: space[2]},
   fallback: {
     backgroundColor: 'rgba(0,0,0,0.45)'
   }

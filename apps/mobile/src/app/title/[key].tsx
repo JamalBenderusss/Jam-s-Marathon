@@ -2,7 +2,7 @@ import { router, useLocalSearchParams } from 'expo-router'
 import {ChevronLeft} from 'lucide-react-native'
 import { View, StyleSheet} from 'react-native'
 
-import {useDiscoverFindByKey} from "@app/api";
+import {useTitle} from "@app/api";
 import {colors, space} from "@app/tokens";
 import Animated  from "react-native-reanimated";
 import {LinearGradient} from "expo-linear-gradient";
@@ -10,11 +10,12 @@ import { FloatingButton, Screen} from "@/components/ui";
 import {ReviewsSection, TitleActions, TitleContent} from "@/components/detail";
 import {HeroBackdrop, SectionCarousel, TitleCard} from "@/components/elements";
 import {useHeroParallax} from "@/hooks";
+import {AiSummary} from "@/components/detail/AiSummary";
 
 export default function TitleDetail() {
 
     const { key } = useLocalSearchParams<{ key: string }>()
-    const { data, isPending} = useDiscoverFindByKey(key)
+    const { data, isPending} = useTitle(key)
 
     const {heroHeight, heroStyle, scrollHandler} = useHeroParallax()
 
@@ -56,6 +57,8 @@ export default function TitleDetail() {
               titleKey={title.key}
             />
 
+            <AiSummary titleKey={title.key} />
+
             {!!title.similar.length && (
               <SectionCarousel title='You may also like'>
                 {title.similar.map(item => (
@@ -78,6 +81,7 @@ export default function TitleDetail() {
         icon={ChevronLeft}
         side='left'
         iconOffset={-2}
+        accessibilityLabel='go back'
         onPress={router.back}
       />
     </Screen>

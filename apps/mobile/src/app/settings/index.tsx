@@ -12,6 +12,7 @@ export default function Settings() {
         side='left'
         icon={ChevronLeft}
         iconOffset={-2}
+        accessibilityLabel='go back'
       />
       <Text>
         Settings

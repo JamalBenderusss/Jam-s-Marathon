@@ -1,4 +1,4 @@
-import {Bookmark, Star, Share} from "lucide-react-native";
+import {Star, Share, FolderPlus} from "lucide-react-native";
 import {View, StyleSheet} from "react-native";
 import {ActionButton} from "@/components/ui";
 import {REVIEW_RATING} from "@app/constants";
@@ -14,9 +14,9 @@ export function TitleActions({titleKey}: {titleKey: string}) {
   return (
     <View style={styles.actions}>
       <ActionButton
-        icon={Bookmark}
-        label='Watchlist'
-        onPress={() => {}}
+        icon={FolderPlus}
+        label='Collection'
+        onPress={() => {pushProtected(`/add-to-collection/${titleKey}`)}}
       />
       <ActionButton
         icon={Star}

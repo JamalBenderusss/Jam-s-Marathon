@@ -1,8 +1,6 @@
 import {StyleSheet, View} from "react-native";
-import {router} from "expo-router";
 import {Button} from "@/components/ui/Button";
 import {colors, space} from "@app/tokens";
-import {onSubmit, submitLabel} from "@expo/ui/swift-ui/modifiers";
 
 interface Props {
   submitLabel: string

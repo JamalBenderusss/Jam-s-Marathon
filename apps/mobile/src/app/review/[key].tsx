@@ -1,5 +1,5 @@
 import {router, useLocalSearchParams} from "expo-router";
-import {useDiscoverFindByKey, useDiscoverFindMyState} from "@app/api";
+import {useTitle, useUserTitle} from "@app/api";
 import {useSaveReview} from "@/hooks/useSaveReview";
 import {Controller, useForm} from "react-hook-form";
 import {reviewSchema, type TReviewSchema} from "@app/schemas";
@@ -11,8 +11,8 @@ import {colors, fontSize, space} from "@app/tokens";
 
 export default function ReviewSheet() {
   const {key} = useLocalSearchParams<{ key: string }>()
-  const { data: title } = useDiscoverFindByKey(key)
-  const { data: myState } = useDiscoverFindMyState(key)
+  const { data: title } = useTitle(key)
+  const { data: myState } = useUserTitle(key)
 
   const review = myState?.data.review ?? null
   const titleName = title?.status === 200 ? title.data.name : null

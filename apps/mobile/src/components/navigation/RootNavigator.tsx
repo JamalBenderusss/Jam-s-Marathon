@@ -22,6 +22,8 @@ export function RootNavigator() {
 
       <Stack.Protected guard={isCompleted}>
         <Stack.Screen name='(tabs)' />
+        <Stack.Screen name='collection' />
+        <Stack.Screen name='collection/[id]' />
         <Stack.Screen
           name='plans'
           options={{presentation: 'fullScreenModal'}}
@@ -34,6 +36,14 @@ export function RootNavigator() {
       />
       <Stack.Screen
         name='review/[key]'
+        options={SHEET_OPTIONS}
+      />
+      <Stack.Screen
+        name='collection-create'
+        options={SHEET_OPTIONS}
+      />
+      <Stack.Screen
+        name='add-to-collection/[key]'
         options={SHEET_OPTIONS}
       />
     </Stack>

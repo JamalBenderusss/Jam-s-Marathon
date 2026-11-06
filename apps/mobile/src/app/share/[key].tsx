@@ -1,6 +1,6 @@
 import {router, useLocalSearchParams} from "expo-router";
 import {StyleSheet, Text, View} from "react-native";
-import {useDiscoverFindByKey} from "@app/api";
+import {useTitle} from "@app/api";
 import {useState} from "react";
 import {colors, fontSize, space} from "@app/tokens";
 import {getReleaseYear} from "@app/utils";
@@ -11,7 +11,7 @@ import {SectionCarousel} from "@/components/elements";
 export default function ShareSheet() {
 
   const {key} = useLocalSearchParams<{ key: string }>()
-  const {data} = useDiscoverFindByKey(key)
+  const {data} = useTitle(key)
   const [selectedIds, setSelectedIds] = useState<string[]>([])
 
   const title = data?.status === 200 ? data.data : null

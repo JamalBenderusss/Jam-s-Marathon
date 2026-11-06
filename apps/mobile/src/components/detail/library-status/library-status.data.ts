@@ -5,5 +5,5 @@ import {Check, type LucideIcon, Play, Plus} from "lucide-react-native";
 export const LIBRARY_ACTION_ICON: Record<TNextLibraryStatus, LucideIcon> = {
   PLANNED: Plus,
   IN_PROGRESS: Play,
-  COMPLETED: Check
+  COMPLETED: Check,
 }

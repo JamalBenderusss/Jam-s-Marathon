@@ -5,9 +5,10 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
+import type { GenreSlug } from './genreSlug';
 
 export interface GenreResponse {
-  id: string;
-  name: string;
-  slug: string;
+  /** Значение для параметра `genre` в GET /external/search */
+  slug: GenreSlug;
+  label: string;
 }

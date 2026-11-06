@@ -1,4 +1,4 @@
-import {useDiscoverGetTrending} from "@app/api";
+import {useTrendingTitles} from "@app/api";
 import {useOnboarding} from "@/providers/OnboardingProvider";
 import {router} from "expo-router";
 import {Pressable, StyleSheet, Text, View} from "react-native";
@@ -6,11 +6,11 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {Sparkles} from "lucide-react-native";
 import {colors, fontSize, fontWeight, radius, space} from "@app/tokens";
 import {Button} from "@/components/ui";
-import {PosterWall} from "@/components/onboarding/PosterWall";
+import {PosterWall} from "@/components/screens/onboarding/PosterWall";
 
 
 export default function Onboarding() {
-  const {data} = useDiscoverGetTrending({take: 24})
+  const {data} = useTrendingTitles({take: 24})
   const { completeOnboarding } = useOnboarding()
 
   const coverUrls = (data?.data ?? []).flatMap(({coverUrl}) =>

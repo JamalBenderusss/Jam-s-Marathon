@@ -1,8 +1,8 @@
-import { useAuthMobileRegister} from "@app/api";
+import { useMobileRegister} from "@app/api";
 import {saveTokens} from "@/lib/token";
 import {type Href, router, useLocalSearchParams} from "expo-router";
 
-import {AuthForm} from "@/components/auth/AuthForm";
+import {AuthForm} from "@/components/screens/auth/AuthForm";
 import {useQueryClient} from "@tanstack/react-query";
 
 export default function Register() {
@@ -10,7 +10,7 @@ export default function Register() {
   const { redirect } = useLocalSearchParams<{ redirect?: Extract<Href, string> }>()
 
 
-  const {mutate, isPending, error} = useAuthMobileRegister({
+  const {mutate, isPending, error} = useMobileRegister({
     mutation: {
       onSuccess: async({data: {accessToken, refreshToken}}) => {
         await saveTokens(accessToken, refreshToken)

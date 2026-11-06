@@ -6,20 +6,16 @@
  * OpenAPI spec version: 1.0
  */
 import {
-  useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
   DefinedUseQueryResult,
-  MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
-  UseMutationOptions,
-  UseMutationResult,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
@@ -27,9 +23,8 @@ import type {
 import type {
   ErrorResponse,
   ExternalTitleResponse,
-  ImportTitleDto,
-  ImportedTitleResponse,
-  IntegrationSearchParams
+  GenreResponse,
+  SearchTitlesParams
 } from '../models';
 
 import { http } from '../../http';
@@ -58,30 +53,30 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type integrationSearchResponse200 = {
+export type searchTitlesResponse200 = {
   data: ExternalTitleResponse[]
   status: 200
 }
 
-export type integrationSearchResponse429 = {
+export type searchTitlesResponse429 = {
   data: ErrorResponse
   status: 429
 }
 
-export type integrationSearchResponseSuccess = (integrationSearchResponse200) & {
+export type searchTitlesResponseSuccess = (searchTitlesResponse200) & {
   headers: Headers;
 };
-export type integrationSearchResponseError = (integrationSearchResponse429) & {
+export type searchTitlesResponseError = (searchTitlesResponse429) & {
   headers: Headers;
 };
 
-export type integrationSearchResponse = (integrationSearchResponseSuccess | integrationSearchResponseError)
+export type searchTitlesResponse = (searchTitlesResponseSuccess | searchTitlesResponseError)
 
-export const getIntegrationSearchUrl = (params: IntegrationSearchParams,) => {
+export const getSearchTitlesUrl = (params: SearchTitlesParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    const explodeParameters = ["type"];
+    const explodeParameters = ["genre","type"];
 
     if (Array.isArray(value) && explodeParameters.includes(key)) {
       value.forEach((v) => {
@@ -103,9 +98,9 @@ export const getIntegrationSearchUrl = (params: IntegrationSearchParams,) => {
 /**
  * @summary Публичный поиск во внешних API с лимитом запросов на IP
  */
-export const integrationSearch = async (params: IntegrationSearchParams, options?: Parameters<typeof http>[1]): Promise<integrationSearchResponse> => {
+export const searchTitles = async (params: SearchTitlesParams, options?: Parameters<typeof http>[1]): Promise<searchTitlesResponse> => {
 
-  return http<integrationSearchResponse>(getIntegrationSearchUrl(params),
+  return http<searchTitlesResponse>(getSearchTitlesUrl(params),
   {
     ...options,
     method: 'GET'
@@ -118,69 +113,69 @@ export const integrationSearch = async (params: IntegrationSearchParams, options
 
 
 
-export const getIntegrationSearchQueryKey = (params?: IntegrationSearchParams,) => {
+export const getSearchTitlesQueryKey = (params?: SearchTitlesParams,) => {
     return [
     `/external/search`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getIntegrationSearchQueryOptions = <TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getSearchTitlesQueryOptions = <TData = Awaited<ReturnType<typeof searchTitles>>, TError = ErrorResponse>(params: SearchTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof searchTitles>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getIntegrationSearchQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getSearchTitlesQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof integrationSearch>>> = ({ signal }) => integrationSearch(params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof searchTitles>>> = ({ signal }) => searchTitles(params, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof searchTitles>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type IntegrationSearchQueryResult = NonNullable<Awaited<ReturnType<typeof integrationSearch>>>
-export type IntegrationSearchQueryError = ErrorResponse
+export type SearchTitlesQueryResult = NonNullable<Awaited<ReturnType<typeof searchTitles>>>
+export type SearchTitlesQueryError = ErrorResponse
 
 
-export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
- params: IntegrationSearchParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>> & Pick<
+export function useSearchTitles<TData = Awaited<ReturnType<typeof searchTitles>>, TError = ErrorResponse>(
+ params: SearchTitlesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof searchTitles>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof integrationSearch>>,
+          Awaited<ReturnType<typeof searchTitles>>,
           TError,
-          Awaited<ReturnType<typeof integrationSearch>>
+          Awaited<ReturnType<typeof searchTitles>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
- params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>> & Pick<
+export function useSearchTitles<TData = Awaited<ReturnType<typeof searchTitles>>, TError = ErrorResponse>(
+ params: SearchTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof searchTitles>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof integrationSearch>>,
+          Awaited<ReturnType<typeof searchTitles>>,
           TError,
-          Awaited<ReturnType<typeof integrationSearch>>
+          Awaited<ReturnType<typeof searchTitles>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
- params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useSearchTitles<TData = Awaited<ReturnType<typeof searchTitles>>, TError = ErrorResponse>(
+ params: SearchTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof searchTitles>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Публичный поиск во внешних API с лимитом запросов на IP
  */
 
-export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
- params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useSearchTitles<TData = Awaited<ReturnType<typeof searchTitles>>, TError = ErrorResponse>(
+ params: SearchTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof searchTitles>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getIntegrationSearchQueryOptions(params,options)
+  const queryOptions = getSearchTitlesQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -192,51 +187,37 @@ export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrati
 
 
 
-export type integrationImportResponse200 = {
-  data: ImportedTitleResponse
+export type externalGenresResponse200 = {
+  data: GenreResponse[]
   status: 200
 }
 
-export type integrationImportResponseSuccess = (integrationImportResponse200) & {
+export type externalGenresResponseSuccess = (externalGenresResponse200) & {
   headers: Headers;
 };
 ;
 
-export type integrationImportResponse = (integrationImportResponseSuccess)
+export type externalGenresResponse = (externalGenresResponseSuccess)
 
-export const getIntegrationImportUrl = () => {
-
-
+export const getExternalGenresUrl = () => {
 
 
-  return `/external/import`
+
+
+  return `/external/genres`
 }
 
 /**
- * @summary Сохранить внешний тайтл к нам
+ * @summary Общий список жанров для фильтра: у каждого источника свои названия
  */
-export const integrationImport = async (importTitleDto: ImportTitleDto, options?: Parameters<typeof http>[1]): Promise<integrationImportResponse> => {
+export const externalGenres = async ( options?: Parameters<typeof http>[1]): Promise<externalGenresResponse> => {
 
-    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
-    if (!h) return {};
-    if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Symbol.iterator in h) {
-      return Object.fromEntries(
-        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
-      );
-    }
-    const headers: Record<string, string | readonly string[]> = {};
-    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
-      if (value !== undefined) headers[name] = value;
-    }
-    return headers;
-  };
-return http<integrationImportResponse>(getIntegrationImportUrl(),
+  return http<externalGenresResponse>(getExternalGenresUrl(),
   {
     ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
-    body: JSON.stringify(importTitleDto)
+    method: 'GET'
+
+
   }
 );}
 
@@ -244,50 +225,77 @@ return http<integrationImportResponse>(getIntegrationImportUrl(),
 
 
 
-export const getIntegrationImportMutationKey = () => ['integrationImport'] as const;
-
-export const getIntegrationImportMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof integrationImport>>, TError,IntegrationImportMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof integrationImport>>, TError,IntegrationImportMutationVariables, TContext> => {
-
-const mutationKey = getIntegrationImportMutationKey();
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof integrationImport>>, IntegrationImportMutationVariables> = (props) => {
-          const {data} = props ?? {};
-
-          return  integrationImport(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type IntegrationImportMutationResult = NonNullable<Awaited<ReturnType<typeof integrationImport>>>
-    export type IntegrationImportMutationBody = ImportTitleDto
-    export type IntegrationImportMutationError = unknown
-    export type IntegrationImportMutationVariables = {data: ImportTitleDto}
-
-    /**
- * @summary Сохранить внешний тайтл к нам
- */
-export const useIntegrationImport = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof integrationImport>>, TError,IntegrationImportMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof integrationImport>>,
-        TError,
-        IntegrationImportMutationVariables,
-        TContext
-      > => {
-      return useMutation(getIntegrationImportMutationOptions(options), queryClient);
+export const getExternalGenresQueryKey = () => {
+    return [
+    `/external/genres`
+    ] as const;
     }
+
+
+export const getExternalGenresQueryOptions = <TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>>, request?: SecondParameter<typeof http>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getExternalGenresQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof externalGenres>>> = ({ signal }) => externalGenres({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ExternalGenresQueryResult = NonNullable<Awaited<ReturnType<typeof externalGenres>>>
+export type ExternalGenresQueryError = unknown
+
+
+export function useExternalGenres<TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof externalGenres>>,
+          TError,
+          Awaited<ReturnType<typeof externalGenres>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useExternalGenres<TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof externalGenres>>,
+          TError,
+          Awaited<ReturnType<typeof externalGenres>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useExternalGenres<TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Общий список жанров для фильтра: у каждого источника свои названия
+ */
+
+export function useExternalGenres<TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getExternalGenresQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+

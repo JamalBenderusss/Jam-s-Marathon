@@ -1,10 +1,10 @@
 import {colors, fontSize, fontWeight, space} from "@app/tokens";
 import {ScrollView, StyleSheet, Text, useWindowDimensions, View} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {PLANS} from "@/components/plans/plans.data";
+import {PLANS} from "@/components/screens/plans/plans.data";
 import {FloatingButton} from "@/components/ui";
 import {router} from "expo-router";
-import {PlanCard} from "@/components/plans/PlanCard";
+import {PlanCard} from "@/components/screens/plans/PlanCard";
 import {X} from "lucide-react-native";
 
 
@@ -44,6 +44,7 @@ export default function Plans() {
           icon={X}
           side='left'
           onPress={() => router.back()}
+          accessibilityLabel='close'
       />
     </View>
   )

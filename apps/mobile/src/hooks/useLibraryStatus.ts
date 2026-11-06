@@ -1,50 +1,59 @@
 import {useQueryClient} from "@tanstack/react-query";
 import {
-    getDiscoverFindMyStateQueryKey, getLibraryFindAllQueryKey,
-    useDiscoverFindMyState, useLibrarySetStatusByDiscoverKey
+    useUserTitle, useSetTitleStatus, useRemoveFromLibrary
 } from "@app/api";
 import type {TLibraryStatus} from "@app/types";
 import {useAuth} from "@/hooks/useAuth";
+import {invalidateTitleState} from "@/lib/invalidate-title-state";
+import {formatProgress} from "@app/utils";
 
 
 export function  useLibraryStatus(key: string) {
-    const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-    const {isAuthorized} = useAuth()
+  const {isAuthorized} = useAuth()
 
-    const { data: myState } = useDiscoverFindMyState(key, {
-      query: { enabled: isAuthorized }
-    })
+  const { data: myState } = useUserTitle(key, {
+    query: { enabled: isAuthorized }
+  })
 
-    const { mutate, variables, isPending } = useLibrarySetStatusByDiscoverKey({
-      mutation: {
-        onSettled: () =>
-          Promise.all([
-          queryClient.invalidateQueries({
-            queryKey: getDiscoverFindMyStateQueryKey(key)
-          }),
-          queryClient.invalidateQueries({
-            queryKey: getLibraryFindAllQueryKey()
-          })
-          ])
+  const onSettled = () => invalidateTitleState(queryClient, key)
+
+  const setStatusMutation = useSetTitleStatus({mutation: {onSettled} })
+  const removeMutation = useRemoveFromLibrary({mutation: {onSettled} })
+
+
+  const savedStatus = myState?.data.libraryEntry?.status ?? null
+  const isSetStatusPending = setStatusMutation.isPending
+    ? setStatusMutation.variables?.data.status
+    : undefined
+  const isRemovePending = removeMutation.isPending
+
+  const status = isRemovePending ? null : (isSetStatusPending ?? savedStatus)
+
+  const setStatus = (status: TLibraryStatus) => {
+    setStatusMutation.mutate({
+      key,
+      data: {
+        status
       }
     })
+  }
 
-    const savedStatus = myState?.data.libraryEntry?.status ?? null
-    const pendingStatus = isPending ? variables?.data.status : undefined
+  const removeFromLibrary = () => {
+    removeMutation.mutate({ key })
+  }
 
-    const setStatus = (status: TLibraryStatus) => {
-        mutate({
-            key,
-            data: {
-                status
-            }
-        })
-    }
-    return {
-        isAuthorized,
-        status: pendingStatus ?? savedStatus,
-        rating: myState?.data.review?.rating ?? null,
-        setStatus
-    }
+  return {
+    isAuthorized,
+    status,
+    rating: myState?.data.review?.rating ?? null,
+    setStatus,
+    isRemovePending,
+    removeFromLibrary,
+    progress: formatProgress(
+      myState?.data.libraryEntry?.progress ?? null,
+      myState?.data.libraryEntry?.progressUnit ?? null
+    )
+  }
 }

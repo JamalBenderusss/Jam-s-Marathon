@@ -26,7 +26,7 @@ export default function TabsLayout() {
           sf={{ default: 'heart', selected: 'heart.fill' }}
           md={{ default: 'diamond_shine', selected: 'family_star' }}
         />
-        <NativeTabs.Trigger.Label>My watchlist</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>My Library</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name='profile'>

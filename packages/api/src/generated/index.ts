@@ -8,7 +8,5 @@ export * from './friends/friends';
 export * from './library/library';
 export * from './notifications/notifications';
 export * from './reviews/reviews';
-export * from './search/search';
 export * from './subscription/subscription';
-export * from './titles/titles';
 export * from './users/users';

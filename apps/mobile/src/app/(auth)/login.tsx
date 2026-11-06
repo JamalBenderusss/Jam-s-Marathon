@@ -1,7 +1,7 @@
-import {useAuthMobileLogin} from "@app/api";
+import {useMobileLogin} from "@app/api";
 import {saveTokens} from "@/lib/token";
 import {type Href, router, useLocalSearchParams} from "expo-router";
-import {AuthForm} from "@/components/auth/AuthForm";
+import {AuthForm} from "@/components/screens/auth/AuthForm";
 import {useQueryClient} from "@tanstack/react-query";
 
 export default function Login () {
@@ -10,7 +10,7 @@ export default function Login () {
     redirect?: Extract<Href, string>
   }>()
 
-  const {mutate, isPending, error} = useAuthMobileLogin({
+  const {mutate, isPending, error} = useMobileLogin({
     mutation: {
       onSuccess: async({data: {accessToken, refreshToken}}) => {
         await saveTokens(accessToken, refreshToken)

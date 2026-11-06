@@ -45,6 +45,9 @@ importers:
       '@app/constants':
         specifier: workspace:^
         version: link:../../packages/constants
+      '@app/hooks':
+        specifier: workspace:^
+        version: link:../../packages/hooks
       '@app/schemas':
         specifier: workspace:^
         version: link:../../packages/schemas
@@ -177,7 +180,15 @@ importers:
         specifier: workspace:^
         version: link:../types
 
-  packages/hooks: {}
+  packages/hooks:
+    dependencies:
+      react:
+        specifier: 19.2.3
+        version: 19.2.3
+    devDependencies:
+      '@types/react':
+        specifier: ~19.2.18
+        version: 19.2.18
 
   packages/schemas:
     dependencies:
@@ -209,6 +220,9 @@ importers:
       '@app/constants':
         specifier: workspace:^
         version: link:../constants
+      '@app/types':
+        specifier: workspace:^
+        version: link:../types
 
 packages:
 

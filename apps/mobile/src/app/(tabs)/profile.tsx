@@ -1,4 +1,4 @@
-import {useAuthMobileLogout, useUserFindMe} from "@app/api";
+import {useMobileLogout, useCurrentUser} from "@app/api";
 import {useQueryClient} from "@tanstack/react-query";
 import {clearTokens, getRefreshToken, } from "@/lib/token";
 import {Redirect, router} from "expo-router";
@@ -8,16 +8,17 @@ import {space} from "@app/tokens";
 
 
 import {Screen} from '@/components/ui/Screen'
-import {ProfileMenuItem} from "@/components/profile/ProfileMenuItem";
-import {PROFILE_MENU} from "@/components/profile/profile-menu.data";
-import {ProfileHeader} from "@/components/profile/ProfileHeader";
-import {DeleteAccount} from "@/components/profile/DeleteAccount";
+import {ProfileMenuItem} from "@/components/screens/profile/ProfileMenuItem";
+import {PROFILE_MENU} from "@/components/screens/profile/profile-menu.data";
+import {ProfileHeader} from "@/components/screens/profile/ProfileHeader";
+import {DeleteAccount} from "@/components/screens/profile/DeleteAccount";
+import {paddingBottomBeforeTabs} from "@/utils/padding-bottom-before-tabs.utils";
 
 export default function Profile() {
   const queryClient = useQueryClient()
-  const {data, isPending: isLoading, isError} = useUserFindMe()
+  const {data, isPending: isLoading, isError} = useCurrentUser()
 
-  const {mutate: logout, isPending} = useAuthMobileLogout({
+  const {mutate: logout, isPending} = useMobileLogout({
     mutation: {
       onSettled: async() => {
         await clearTokens()
@@ -44,9 +45,10 @@ export default function Profile() {
       avatarUrl={data.data.profile?.avatarUrl || ''}
     />
 
-    <ScrollView showsVerticalScrollIndicator={false} style={{
-      paddingHorizontal: space[3]
-    }}>
+    <ScrollView showsVerticalScrollIndicator={false}
+      style={{ paddingHorizontal: space[3]}}
+      contentContainerStyle={{paddingBottom: space[16]}}
+    >
 
       {PROFILE_MENU.map((item, index) => (
         <ProfileMenuItem

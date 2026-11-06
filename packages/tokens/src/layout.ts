@@ -9,7 +9,8 @@ export const space = {
   8: 32,
   9: 36,
   10: 40,
-  15: 90
+  15: 90,
+  16: 96
 } as const
 
 export const radius = {

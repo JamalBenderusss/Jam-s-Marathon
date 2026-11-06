@@ -15,7 +15,7 @@ export default defineConfig({
           name: 'http'
         },
         operations: {
-          library_findAll: {
+          libraryTitles: {
             query: {
               useInfinite: true,
               useInfiniteQueryParam: 'skip'
